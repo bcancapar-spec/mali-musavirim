@@ -13,6 +13,7 @@
 - Mali müşavir için ayrıntılı politika, kullanım ve yazılımı çalıştırmadan kurgusal vaka üzerinden öğrenme rehberleri eklendi.
 - Otomatik test paketi 72 teste çıkarıldı.
 - Test sayısı, dosya bazlı dağılımı, pozitif/negatif yöntemleri, kurcalama/hash ve entegrasyon kontrolleri ayrı metodoloji belgesi ile makinece okunabilir test sonuç kaydında yayımlandı.
+- Projenin başlangıç talepleri, hedef mimarisi, tamamlanan çıktıları, açık eksikleri, güncel çalışma durumu ve gerçek veri yol haritası ayrıntılı durum belgesinde yayımlandı.
 
 ## v0.0.2 — Vergi müfettişi ve YMM uzmanlıkları
 

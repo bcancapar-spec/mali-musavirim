@@ -10,6 +10,18 @@ Sürüm bazında eklenen özellikler için [Sürüm Notları](CHANGELOG.md) dosy
 
 **Doğrulanmış test durumu:** `72/72 PASS` — başarısız `0`, hata `0`, atlanan `0`. Test kapsamı, pozitif/negatif yöntemler ve güvence sınırları için [Test Yöntemi ve Doğrulama Sonuçları](docs/TEST-YONTEMI-VE-SONUCLARI.md); makinece okunabilir kayıt için [v0.0.3 test sonucu](docs/test-results-v0.0.3.json) dosyasına bakın.
 
+## Ne istedik, neyi hedefledik, neyi başardık, şimdi ne yapıyoruz?
+
+Bu proje; Türk muhasebe ve vergi uygulamalarını yerelde inceleyen, bütün sayısal işlemleri Python ile yapan, THP/VUK kurallarını deterministik kapılarla uygulayan ve işi meslek mensubu incelemesine hazırlayan bir sanal mali müşavir sistemi kurma talebiyle başladı.
+
+Hedefimiz tek seferlik cevap üreten bir sohbet değil; belge kabulünden resmî kaynağa, Python hesabından THP/VUK kontrolüne, mükellef lehine adımdan aleyhe yerel iç bildirime ve fiziksel SHA-256 kanıtına kadar uçtan uca çalışan bir dosya metodolojisidir.
+
+Bugün itibarıyla yerel ingest, 14 hesap işlemi, 271 hesaplı genel THP kataloğu, 48 profesyonel rol kuralı, 16 mükellef menfaati kuralı, üç uzmanlık becerisi, zorunlu vaka kapıları, meslek rehberleri ve 72 başarılı test tamamlandı.
+
+Henüz gerçek müşteri verisi pilotu, bütün vergi mevzuatının kurallaştırılması, tüm TMS/TFRS paragrafları, sektörel hesap planları, canlı GİB/e-Defter entegrasyonu ve bağımsız güvenlik/performans denetimi tamamlanmadı. Şimdiki hedef, kullanıcının sağlayacağı gerçek muhasebe kayıtlarını yerelde çalıştırmak ve sistemin gerçek veri üzerindeki yanlış pozitiflerini, veri eşlemelerini ve eksik kurallarını ölçmektir.
+
+İsteklerin kronolojisi, hedef mimari, tamamlanan işler, açık eksikler, güncel çalışma ve yol haritası için [Proje Amacı, Kapsamı ve Güncel Durumu](docs/PROJE-AMACI-KAPSAMI-VE-DURUMU.md) belgesini okuyun.
+
 Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
 
 Yazılımı hiç çalıştırmadan bütün sistemi kurgusal bir muhasebe vakası üzerinden kavramak için [Mali Müşavirim'i Yazılımı Çalıştırmadan Anlama Rehberi](docs/SISTEMI-KULLANMADAN-ANLAMA-REHBERI.md) dosyasını okuyun. Bu rehber; belge kabulünden THP/VUK kontrolüne, Python hesap izinden mükellef lehine adıma, aleyhe iç bildirimden vergi müfettişi/YMM bakışına kadar tüm zinciri mali müşavir diliyle örnekler.
