@@ -1,10 +1,10 @@
-# Vergi Müfettişi ve YMM Yetenekleri — v0.0.2 Uygulama Rehberi
+# Vergi Müfettişi ve YMM Yetenekleri — v0.0.3 Uygulama Rehberi
 
 Bu rehber, `muhasebecim` eklentisine eklenen vergi müfettişi bakışı ile Yeminli Mali Müşavir tasdik desteğinin ne yaptığını mali müşavir diliyle açıklar.
 
 ## 1. Kısa sonuç
 
-v0.0.2 ile sistem üç ayrı uzmanlığı tek Codex eklentisi içinde toplar:
+v0.0.3 ile sistem üç ayrı uzmanlığı ve ortak mükellef menfaati/iç bildirim kapısını tek Codex eklentisi içinde toplar:
 
 | Yetenek | Ne için kullanılır? | Yetki sonucu |
 |---|---|---|
@@ -30,7 +30,7 @@ VUK 134'e göre vergi incelemesinin amacı, ödenmesi gereken vergilerin doğrul
 - VUK 359 emaresini suçluluk sonucu değil, yetkili incelemeye eskalasyon bayrağı olarak işaretleme.
 - Mükellef hakları, vergi mahremiyeti, süre ve rapor kalite kapılarını izleme.
 
-VDK'nın resmî görev listesinde vergi incelemesine ek olarak teftiş, idari soruşturma, TPKK, suç gelirlerinin aklanması mevzuatı ve araştırma görevleri de bulunur. v0.0.2 bunların varlığını tanır fakat alan mevzuatı ve gerçek görevlendirme olmadan bu yetkileri taklit etmez.
+VDK'nın resmî görev listesinde vergi incelemesine ek olarak teftiş, idari soruşturma, TPKK, suç gelirlerinin aklanması mevzuatı ve araştırma görevleri de bulunur. Sistem bunların varlığını tanır fakat alan mevzuatı ve gerçek görevlendirme olmadan bu yetkileri taklit etmez.
 
 ## 3. Vergi incelemesi modları
 
@@ -132,6 +132,16 @@ python .\skills\muhasebecim\scripts\professional_role_engine.py `
 
 ## 8. Vaka kapanışına bağlama
 
+Her üç rolde de [Mükellef Menfaati ve İç Bildirim Rehberi](MUKELLEF-MENFAATI-VE-IC-BILDIRIM.md) uygulanır. Lehe adım hazırlanır; aleyhe husus yerel iç kayıtta kullanıcı/SMMM/YMM'ye gösterilir. Yetkili müfettiş modunda lehe ve aleyhe kanıt birlikte değerlendirilir; YMM modunda bağımsızlık ve doğru raporlama korunur.
+
+Her vaka için zorunlu sonuç yolu:
+
+```text
+outputs/taxpayer-interest-result.json
+```
+
+Bu kapı fiziksel lehe adım/iç bildirim dosyasını, SHA-256 bağını, görülme kaydını ve motor makbuzunu doğrular. `case.json` içinden kapatılamaz.
+
 Vergi incelemesi hazırlığı gereken vakada `case.json`:
 
 ```json
@@ -196,6 +206,8 @@ Benzer şekilde YMM tasdik konularındaki parasal had, istisna, rapor formatı v
 3. İşlem tarihi ve incelenecek dönemi kesinleştirin.
 4. Güncel mevzuat kaynaklarını ingest edin.
 5. Hazırlık veya yetkili destek modunu doğru seçin.
-6. Motor örneğini vaka bilgileriyle doldurun.
-7. `BLOCK` bulgularını kapatmadan `finalize` yapmayın.
-8. Dış sunumdan önce ruhsatlı/yetkili meslek mensubu incelemesini tamamlayın.
+6. Motor örneklerini vaka bilgileriyle doldurun.
+7. Hukuka uygun lehe adımı ve aleyhe husus varsa yerel iç bildirimi fiziksel çalışma kâğıdı olarak hazırlayın.
+8. `taxpayer_interest_engine.py` sonucunu üretip `outputs/taxpayer-interest-result.json` yoluna yazın.
+9. `BLOCK` bulgularını kapatmadan `finalize` yapmayın.
+10. Dış sunumdan önce ruhsatlı/yetkili meslek mensubu incelemesini tamamlayın.

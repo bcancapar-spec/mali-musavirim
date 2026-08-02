@@ -3,15 +3,17 @@
 ## Yanıt sırası
 
 1. **Kısa sonuç:** Uygulanabilir sonuç ve en önemli belirsizlik.
-2. **Kapsam:** İşletme, dönem, işlem tarihi, amaç, finansal raporlama çerçevesi ve vergi katmanı.
-3. **Olgular ve varsayımlar:** Kullanıcıdan gelenler ile varsayılanları ayır.
-4. **Kaynak kaydı:** Kurum, düzenleme, yürürlük, nokta atfı, bağlantı ve erişim tarihi.
-5. **Muhakeme:** Her mesele için olgu → hüküm → değerlendirme → sonuç.
-6. **Python hesabı:** Girdi, yöntem, yuvarlama, çıktı ve dosya yolları.
-7. **Yevmiye kaydı:** Hesaplar, borç/alacak, katman ve denklik sonucu.
-8. **Ticari-mali mutabakat:** İlave, indirim, geçici/sürekli fark ve vergi etkisi.
-9. **Kontroller:** Kaynak, hesap, denklik, çapraz toplam, dönem ve sunum kontrolleri.
-10. **Açık hususlar:** Sonucu değiştirebilecek eksik belge veya kararlar.
+2. **Mükellef menfaati:** Hazırlanan hukuka uygun lehe adım; süre ve kanıt bağı.
+3. **İç risk bildirimi:** Aleyhe husus varsa yalnız kullanıcı/SMMM/YMM'ye özel bildirim durumu; dış yanıtta hassas içeriği ifşa etme.
+4. **Kapsam:** İşletme, dönem, işlem tarihi, amaç, finansal raporlama çerçevesi ve vergi katmanı.
+5. **Olgular ve varsayımlar:** Kullanıcıdan gelenler ile varsayılanları ayır.
+6. **Kaynak kaydı:** Kurum, düzenleme, yürürlük, nokta atfı, bağlantı ve erişim tarihi.
+7. **Muhakeme:** Her mesele için olgu → hüküm → değerlendirme → sonuç.
+8. **Python hesabı:** Girdi, yöntem, yuvarlama, çıktı ve dosya yolları.
+9. **Yevmiye kaydı:** Hesaplar, borç/alacak, katman ve denklik sonucu.
+10. **Ticari-mali mutabakat:** İlave, indirim, geçici/sürekli fark ve vergi etkisi.
+11. **Kontroller:** Kaynak, hesap, denklik, çapraz toplam, dönem ve sunum kontrolleri.
+12. **Açık hususlar:** Sonucu değiştirebilecek eksik belge veya kararlar.
 
 ## Kaynak tablosu
 

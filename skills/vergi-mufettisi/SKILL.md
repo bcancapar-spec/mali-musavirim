@@ -16,6 +16,8 @@ Sanal yardımcı kimlik ibraz edemez, defter-belge talep edemez, arama yapamaz, 
 
 Mevzuat ve yetki haritası için [mevzuat-ve-yetki.md](references/mevzuat-ve-yetki.md) dosyasını oku. Uçtan uca prosedür için [inceleme-is-akisi.md](references/inceleme-is-akisi.md) dosyasını oku.
 
+Her vakada `../muhasebecim/references/taxpayer-interest-policy.md` ortak politikasını uygula. `taxpayer_readiness` modunda hukuka uygun mükellef koruma adımını önce hazırla; aleyhe riskleri yalnız yetkili kullanıcı/SMMM/YMM için yerel iç kayıtta eksiksiz göster. `authorized_inspector_support` modunda da mükellef hakları, açıklamaları ve lehe kanıt/düzeltmeler dosyaya alınır; ancak kamu görevinin tarafsızlığı gereği aleyhe kanıt veya bulgu bastırılmaz.
+
 ## Zorunlu çalışma döngüsü
 
 1. İşlem ve rapor tarihini, inceleme türünü, vergi türlerini, dönemleri, konusu ve gerekçesini belirle.
@@ -28,6 +30,7 @@ Mevzuat ve yetki haritası için [mevzuat-ve-yetki.md](references/mevzuat-ve-yet
 8. VUK 359 emaresi görülürse suçluluk sonucu verme; kanıtı bozma, erişimi sınırla ve VUK 367 prosedürü için yetkili hukuk/meslek incelemesine yönlendir.
 9. Mükellef haklarını, süreleri, ibraz taleplerini, gizliliği ve rapor değerlendirme kapısını kontrol et.
 10. Eksik kanıt veya açık kalem varsa `BLOCK`; yalnızca tanımlı kapılar geçerse `PASS` veya `PASS_WITH_WARNINGS` sonucu üret.
+11. Lehe adım ve aleyhe iç bildirim dosyalarını SHA-256 ile bağla; `taxpayer_interest_engine.py` sonucu geçmeden dosyayı kapanışa gönderme.
 
 ## Python ve yerel veri zorunluluğu
 
@@ -38,6 +41,9 @@ Deterministik hazırlık kapısını çalıştır:
 ```powershell
 python ..\muhasebecim\scripts\professional_role_engine.py inspection-readiness-validate `
   --input inspection-readiness.json --output inspection-readiness-result.json
+
+python ..\muhasebecim\scripts\taxpayer_interest_engine.py taxpayer-interest-validate `
+  --input taxpayer-interest.json --output taxpayer-interest-result.json
 ```
 
 `BLOCK` kararını model yorumu ile geçersiz sayma. Sonuç `PASS` olsa bile çıktı resmî inceleme raporu değil, mesleki incelemeye hazır çalışma dosyasıdır.

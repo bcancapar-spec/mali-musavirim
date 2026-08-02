@@ -12,6 +12,7 @@ import muhasebecim_engine as engine
 import query_corpus
 import case_workflow
 import prepare_2026_tfrs_manifest
+import taxpayer_interest_engine
 
 
 class EngineTests(unittest.TestCase):
@@ -341,6 +342,14 @@ class WorkflowTests(unittest.TestCase):
             (case_dir / "workpapers" / "analysis.md").write_text("# Analysis\n\nOlgu → hüküm → değerlendirme → sonuç.\n", encoding="utf-8")
             calculation = engine.envelope("vat", {"amount": "120", "rate": "0.20", "inclusive": True}, engine.vat({"amount": "120", "rate": "0.20", "inclusive": True}))
             case_workflow.write_json(case_dir / "calculations" / "result-vat.json", calculation)
+            interest_catalog, interest_sha256 = taxpayer_interest_engine.load_catalog(taxpayer_interest_engine.DEFAULT_CATALOG)
+            interest_result = taxpayer_interest_engine.run_validate(
+                taxpayer_interest_engine.example(), interest_catalog, interest_sha256,
+            )
+            action_path = case_dir / "workpapers" / "taxpayer-actions" / "ACTION-001.json"
+            action_path.parent.mkdir(parents=True, exist_ok=True)
+            action_path.write_bytes(b'{"action_id":"ACTION-001"}\n')
+            case_workflow.write_json(case_dir / "outputs" / "taxpayer-interest-result.json", interest_result)
             final = case_workflow.finalize_case(case_dir)
             self.assertTrue(final["finalized"])
             self.assertEqual(json.loads((case_dir / "case.json").read_text(encoding="utf-8"))["status"], "ready_for_professional_review")

@@ -23,7 +23,7 @@ from typing import Any, Iterable
 
 
 ENGINE_NAME = "muhasebecim-thp-vuk"
-ENGINE_VERSION = "0.0.2"
+ENGINE_VERSION = "0.0.3"
 DEFAULT_CATALOG = Path(__file__).with_name("data") / "thp_accounts.v1.json"
 MONEY_RE = re.compile(r"^(?:0|[1-9]\d*)(?:\.\d+)?$")
 ACCOUNT_RE = re.compile(r"^(\d{3})(?:[.\-/ ]([0-9A-Za-zÇĞİÖŞÜçğıöşü]+(?:[.\-/ ][0-9A-Za-zÇĞİÖŞÜçğıöşü]+)*))?$")

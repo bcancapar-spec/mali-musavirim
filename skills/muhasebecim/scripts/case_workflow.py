@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERSION = "0.0.2"
+VERSION = "0.0.3"
 CASE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 REQUIRED_FACTS = {
     "as_of_date",
@@ -70,6 +70,7 @@ def init_case(case_dir: Path, case_id: str, as_of_date: str) -> dict[str, Any]:
         "requires_thp_validation": False,
         "requires_inspection_readiness": False,
         "requires_ymm_certification": False,
+        "requires_taxpayer_interest_review": True,
         "requires_tax_reconciliation": False,
     }
     facts = {
@@ -115,6 +116,54 @@ def _valid_receipt(value: Any) -> bool:
     canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
     actual = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
     return supplied == actual
+
+
+def _bound_artifact_errors(case_dir: Path, records: Any, id_field: str) -> list[str]:
+    if not isinstance(records, list):
+        return ["artifact records must be an array"]
+    errors: list[str] = []
+    seen: set[str] = set()
+    root = case_dir.resolve()
+    for index, record in enumerate(records):
+        location = f"records[{index}]"
+        if not isinstance(record, dict) or set(record) != {id_field, "reference", "sha256"}:
+            errors.append(f"{location} fields are invalid")
+            continue
+        record_id = record.get(id_field)
+        reference = record.get("reference")
+        expected_sha256 = record.get("sha256")
+        if not isinstance(record_id, str) or not record_id or record_id in seen:
+            errors.append(f"{location}.{id_field} is missing or duplicated")
+            continue
+        seen.add(record_id)
+        if not isinstance(reference, str) or not reference or not isinstance(expected_sha256, str) or not re.fullmatch(r"[0-9a-f]{64}", expected_sha256):
+            errors.append(f"{location} reference or SHA-256 is invalid")
+            continue
+        candidate = Path(reference)
+        if candidate.is_absolute():
+            errors.append(f"{record_id} artifact reference must be case-relative")
+            continue
+        resolved = (root / candidate).resolve()
+        try:
+            resolved.relative_to(root)
+        except ValueError:
+            errors.append(f"{record_id} artifact escapes the case directory")
+            continue
+        if not resolved.is_file():
+            errors.append(f"{record_id} artifact is missing: {reference}")
+            continue
+        actual_sha256 = hashlib.sha256(resolved.read_bytes()).hexdigest()
+        if actual_sha256 != expected_sha256:
+            errors.append(f"{record_id} artifact SHA-256 mismatch: {reference}")
+            continue
+        try:
+            artifact_body = json.loads(resolved.read_text(encoding="utf-8"))
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            errors.append(f"{record_id} artifact must be valid UTF-8 JSON: {reference}")
+            continue
+        if not isinstance(artifact_body, dict) or artifact_body.get(id_field) != record_id:
+            errors.append(f"{record_id} artifact does not contain the matching {id_field}: {reference}")
+    return errors
 
 
 def check_case(case_dir: Path) -> dict[str, Any]:
@@ -260,6 +309,69 @@ def check_case(case_dir: Path) -> dict[str, Any]:
                 "passed": passed,
             },
         ))
+
+    taxpayer_interest_required = True
+    taxpayer_interest_path = case_dir / "outputs" / "taxpayer-interest-result.json"
+    taxpayer_interest_passed = False
+    taxpayer_interest_decision = None
+    taxpayer_interest_receipt_valid = False
+    taxpayer_interest_status = None
+    internal_intelligence_status = None
+    taxpayer_interest_artifact_errors: list[str] = []
+    if taxpayer_interest_path.is_file():
+        taxpayer_interest_result = read_json(taxpayer_interest_path)
+        if isinstance(taxpayer_interest_result, dict):
+            taxpayer_interest_decision = taxpayer_interest_result.get("decision")
+            taxpayer_interest_receipt_valid = _valid_receipt(taxpayer_interest_result)
+            taxpayer_interest_engine = taxpayer_interest_result.get("engine", {})
+            result_body = taxpayer_interest_result.get("result", {})
+            if isinstance(result_body, dict):
+                taxpayer_interest_status = result_body.get("taxpayer_favorable_path_status")
+                internal_intelligence_status = result_body.get("internal_intelligence_status")
+                action_records = result_body.get("active_favorable_action_records")
+                alert_records = result_body.get("internal_alert_records")
+                taxpayer_interest_artifact_errors.extend(_bound_artifact_errors(case_dir, action_records, "action_id"))
+                taxpayer_interest_artifact_errors.extend(_bound_artifact_errors(case_dir, alert_records, "matter_id"))
+                action_ids = result_body.get("active_favorable_action_ids")
+                adverse_ids = result_body.get("adverse_matter_ids")
+                if isinstance(action_records, list) and isinstance(action_ids, list):
+                    record_action_ids = [row.get("action_id") for row in action_records if isinstance(row, dict)]
+                    if not all(isinstance(item, str) for item in record_action_ids + action_ids) or sorted(record_action_ids) != sorted(action_ids):
+                        taxpayer_interest_artifact_errors.append("active favorable action ids do not match bound artifacts")
+                if isinstance(alert_records, list) and isinstance(adverse_ids, list):
+                    record_matter_ids = [row.get("matter_id") for row in alert_records if isinstance(row, dict)]
+                    if not all(isinstance(item, str) for item in record_matter_ids + adverse_ids) or sorted(record_matter_ids) != sorted(adverse_ids):
+                        taxpayer_interest_artifact_errors.append("adverse matter ids do not match bound alert artifacts")
+            taxpayer_interest_passed = (
+                isinstance(taxpayer_interest_engine, dict)
+                and taxpayer_interest_engine.get("name") == "muhasebecim-taxpayer-interest"
+                and taxpayer_interest_result.get("operation") == "taxpayer-interest-validate"
+                and taxpayer_interest_decision in {"PASS", "PASS_WITH_WARNINGS"}
+                and taxpayer_interest_receipt_valid
+                and isinstance(result_body, dict)
+                and result_body.get("output_status") == "INTERNAL_TAXPAYER_PROTECTION_RECORD"
+                and result_body.get("taxpayer_favorable_path_status") == "PREPARED"
+                and result_body.get("internal_intelligence_status") in {"CLEAR", "ACKNOWLEDGED"}
+                and result_body.get("external_transmission_permitted") is False
+                and result_body.get("professional_act_permitted") is False
+                and not taxpayer_interest_artifact_errors
+            )
+    gates.append(gate(
+        "taxpayer_interest_and_internal_alert",
+        (not taxpayer_interest_required) or taxpayer_interest_passed,
+        {
+            "required": taxpayer_interest_required,
+            "case_configuration": case.get("requires_taxpayer_interest_review", "missing_defaults_to_mandatory"),
+            "path": str(taxpayer_interest_path),
+            "operation": "taxpayer-interest-validate",
+            "decision": taxpayer_interest_decision,
+            "taxpayer_favorable_path_status": taxpayer_interest_status,
+            "internal_intelligence_status": internal_intelligence_status,
+            "receipt_valid": taxpayer_interest_receipt_valid,
+            "artifact_errors": taxpayer_interest_artifact_errors,
+            "passed": taxpayer_interest_passed,
+        },
+    ))
 
     reconciliation_required = bool(case.get("requires_tax_reconciliation", False))
     reconciliation_path = case_dir / "outputs" / "tax-reconciliation-result.json"

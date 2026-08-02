@@ -2,13 +2,19 @@
 
 Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî kaynak sürümleyen ve bütün sayısal işlemleri denetlenebilir Python koduyla yapan Codex yeteneği.
 
-**Güncel sürüm:** `v0.0.2`
+**Güncel sürüm:** `v0.0.3`
 
 **İlk public pilot sürüm:** `v0.0.1`
 
+Sürüm bazında eklenen özellikler için [Sürüm Notları](CHANGELOG.md) dosyasına bakın.
+
 Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
 
+Yazılımı hiç çalıştırmadan bütün sistemi kurgusal bir muhasebe vakası üzerinden kavramak için [Mali Müşavirim'i Yazılımı Çalıştırmadan Anlama Rehberi](docs/SISTEMI-KULLANMADAN-ANLAMA-REHBERI.md) dosyasını okuyun. Bu rehber; belge kabulünden THP/VUK kontrolüne, Python hesap izinden mükellef lehine adıma, aleyhe iç bildirimden vergi müfettişi/YMM bakışına kadar tüm zinciri mali müşavir diliyle örnekler.
+
 Vergi müfettişi bakışı, vergi incelemesi hazırlığı ve YMM tasdik kapıları için [Vergi Müfettişi ve YMM Uygulama Rehberi](docs/VERGI-MUFETTISI-YMM-REHBERI.md) dosyasını okuyun.
+
+Her vakada hukuka uygun mükellef lehine adım hazırlanması ve aleyhe hususların zorunlu yerel iç bildirimi için [Mükellef Menfaati ve İç Bildirim Rehberi](docs/MUKELLEF-MENFAATI-VE-IC-BILDIRIM.md) dosyasını okuyun.
 
 ## Mali müşavir için kısa açıklama
 
@@ -30,6 +36,8 @@ Sonuçtaki `PASS`, yalnız tanımlı mekanik kontrollerin geçtiğini gösterir.
 - VUK 5 ve 134-142/256/359/367 ile VDK usullerini iş akışına dönüştüren `$vergi-mufettisi` yeteneği.
 - 3568 sayılı Kanun ve YMM yönetmeliklerinden türetilen bağımsızlık, sözleşme, kanıt, karşıt inceleme ve rapor kapılarına sahip `$yeminli-mali-musavir` yeteneği.
 - 17 mevzuat kaynağına bağlı 48 kuralla çalışan `professional_role_engine.py`; yetki/ruhsat eksikliğinde fail-closed, aynı girdide aynı SHA-256 makbuzu.
+- 5 kaynak kaydına bağlı 16 kapalı kuralla çalışan `taxpayer_interest_engine.py`; her vakada güncel hukuka uygun lehe adım, aleyhe hususta yerel iç bildirim, kullanıcı/SMMM/YMM görülme kaydı ve insan onayı.
+- Lehe adım ve iç bildirim dosyasını yalnız “hazır” beyanıyla kabul etmeyen fiziksel dosya + SHA-256 vaka kapısı; `case.json` ile kapatılamaz.
 - Codex eklenti manifesti: tek kurulumda muhasebe, vergi incelemesi ve YMM tasdik uzmanlıkları.
 
 ## Codex eklentisi ve uzmanlıklar
@@ -41,6 +49,8 @@ Depo kökündeki `.codex-plugin/plugin.json`, `skills/` altındaki üç yeteneğ
 - `$yeminli-mali-musavir`: YMM tasdik kabulü, bağımsızlık, denetim ve rapor kalite kapıları.
 
 Rol motoru kamu yetkisi, ruhsat, imza veya mühür üretmez. Her sonuçta `professional_act_permitted` alanı `false` kalır.
+
+Üç yetenek tek [mükellef menfaati politikasına](skills/muhasebecim/references/taxpayer-interest-policy.md) tabidir: dış taslakta mükellefi gereksiz zayıflatan ikrar/ifade üretilmez; aleyhe olgu ise yerel iç analizde asla saklanmaz. Bu ayrım doğru kayıt, zorunlu beyan, YMM bağımsızlığı veya vergi müfettişi tarafsızlığını kaldırmaz.
 
 ## Deterministik THP/VUK motoru
 
@@ -160,12 +170,25 @@ python .\skills\muhasebecim\scripts\professional_role_engine.py `
 
 Vaka kapısında ilgili `requires_inspection_readiness` veya `requires_ymm_certification` alanını `true` yapın. Motor sonuçlarını sırasıyla `outputs/inspection-readiness-result.json` ve `outputs/ymm-certification-result.json` yollarına yazın.
 
+Mükellef menfaati ve iç bildirim kapısını çalıştır:
+
+```powershell
+python .\skills\muhasebecim\scripts\taxpayer_interest_engine.py catalog-audit
+python .\skills\muhasebecim\scripts\taxpayer_interest_engine.py `
+  taxpayer-interest-validate --example --output .\taxpayer-interest.json
+python .\skills\muhasebecim\scripts\taxpayer_interest_engine.py `
+  taxpayer-interest-validate --input .\taxpayer-interest.json `
+  --output .\cases\ornek-vaka\outputs\taxpayer-interest-result.json
+```
+
+Bu sonuç tüm vakalarda zorunludur. `case_workflow.py`, aktif lehe adım ile aleyhe iç bildirimlerin vaka içindeki fiziksel dosyalarını ve SHA-256 özetlerini de doğrular.
+
 ## Yapı
 
 ```text
 muhasebecim/
 ├── .codex-plugin/plugin.json         # Üç yeteneği kaydeden eklenti manifesti
-├── docs/                            # Mali müşavir ve uzmanlık rehberleri
+├── docs/                            # Mali müşavir, uzmanlık ve mükellef menfaati rehberleri
 ├── corpus/official/                 # Yerel, hash denetimli başlangıç korpusu
 ├── manifests/                       # Genel ve hedefli resmî kaynak manifestleri
 └── skills/
@@ -176,6 +199,6 @@ muhasebecim/
 
 ## Sınır
 
-Bu yazılım ruhsatlı SMMM/YMM'nin imza, tasdik, beyan veya mesleki sorumluluğunun yerine geçmez. Çıktılar dış gönderimden önce yetkili meslek mensubu tarafından incelenmelidir. Mevzuat değişkendir; her vaka tarihinde resmî kaynaklar yeniden ingest edilip yürürlük doğrulanmalıdır.
+Bu yazılım ruhsatlı SMMM/YMM'nin imza, tasdik, beyan veya mesleki sorumluluğunun yerine geçmez. “Mükellef lehine” politika hukuka aykırı işlem, eksik/yanıltıcı kayıt, kanıt gizleme veya resmî/YMM tarafsızlığını bozma yetkisi vermez. Çıktılar dış gönderimden önce yetkili meslek mensubu tarafından incelenmelidir. Mevzuat değişkendir; her vaka tarihinde resmî kaynaklar yeniden ingest edilip yürürlük doğrulanmalıdır.
 
 MIT — Copyright (c) 2026 Bayram Can Çapar.

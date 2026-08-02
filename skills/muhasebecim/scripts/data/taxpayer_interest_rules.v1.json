@@ -1,0 +1,157 @@
+{
+  "schema_version": 1,
+  "catalog_version": "1.0.0",
+  "verified_through": "2026-08-02",
+  "framework": "Mükellef lehine hukuka uygun hazırlık, aleyhe hususta zorunlu yerel iç bildirim ve insan onayı",
+  "operations": [
+    "taxpayer-interest-validate"
+  ],
+  "role_modes": [
+    "accountant_advisory",
+    "taxpayer_readiness",
+    "authorized_inspector_support",
+    "pre_certification_readiness",
+    "licensed_ymm_support"
+  ],
+  "action_types": [
+    "right_assertion",
+    "evidence_completion",
+    "voluntary_correction",
+    "reconciliation",
+    "explanation",
+    "objection",
+    "settlement",
+    "appeal",
+    "payment_or_installment",
+    "other"
+  ],
+  "alert_recipients": [
+    "user",
+    "smmm",
+    "ymm"
+  ],
+  "sources": [
+    {
+      "id": "PROJECT-POLICY-ML-001",
+      "title": "Mali Müşavirim mükellef menfaati ve iç bildirim politikası",
+      "authority": "Proje iç çalışma politikası",
+      "url": "https://github.com/bcancapar-spec/mali-musavirim",
+      "pinpoint": "Hukuka uygun lehe adım; aleyhe hususu gizlememe; yerel iç bildirim; insan kararı",
+      "status": "project_policy"
+    },
+    {
+      "id": "VUK-134-142",
+      "title": "213 sayılı Vergi Usul Kanunu maddeler 134-142",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "Vergi incelemesinin amacı, usulü, tutanak ve mükellef açıklamaları",
+      "status": "in_force"
+    },
+    {
+      "id": "VDK-HAKLAR",
+      "title": "Vergi İncelemesinde Mükellef Hakları",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "url": "https://vdk.hmb.gov.tr/vergi-incelemesinde-mukellef-haklari",
+      "pinpoint": "Kapsam, yazılı talep, tutanak, açıklama, gizlilik ve takip hakları",
+      "status": "administrative_view"
+    },
+    {
+      "id": "3568-11",
+      "title": "3568 sayılı Kanun madde 11",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "pinpoint": "Bağımsızlık, tarafsızlık, dürüstlük ve mesleki özen",
+      "status": "in_force"
+    },
+    {
+      "id": "3568-12",
+      "title": "3568 sayılı Kanun madde 12",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "pinpoint": "Tasdik kapsamı ve sorumluluk",
+      "status": "in_force"
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "ML-LEH-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VDK-HAKLAR"]
+    },
+    {
+      "rule_id": "ML-LEH-002",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-LEH-003",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VDK-HAKLAR"]
+    },
+    {
+      "rule_id": "ML-SURE-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VUK-134-142"]
+    },
+    {
+      "rule_id": "ML-SURE-002",
+      "severity": "WARN",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VUK-134-142"]
+    },
+    {
+      "rule_id": "ML-ALEYH-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-ALICI-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-ACK-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-KORUMA-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VDK-HAKLAR"]
+    },
+    {
+      "rule_id": "ML-DIS-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-YEREL-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    },
+    {
+      "rule_id": "ML-GIZLEME-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "3568-11"]
+    },
+    {
+      "rule_id": "ML-HUKUK-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "VUK-134-142", "3568-12"]
+    },
+    {
+      "rule_id": "ML-BAGIMSIZLIK-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "3568-11", "3568-12"]
+    },
+    {
+      "rule_id": "ML-INCELEME-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001", "3568-11"]
+    },
+    {
+      "rule_id": "ML-OZELLIK-001",
+      "severity": "BLOCK",
+      "source_refs": ["PROJECT-POLICY-ML-001"]
+    }
+  ]
+}

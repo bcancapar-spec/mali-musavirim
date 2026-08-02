@@ -19,7 +19,7 @@ from typing import Any
 
 
 ENGINE_NAME = "muhasebecim-professional-roles"
-ENGINE_VERSION = "0.0.2"
+ENGINE_VERSION = "0.0.3"
 DEFAULT_CATALOG = Path(__file__).with_name("data") / "professional_roles.v1.json"
 EXPECTED_CATALOG_SHA256 = "c7f09a3f3564dd22e384420b0af3c528096fd65ea6d4860eb5f053985194d066"
 OPERATIONS = {"inspection-readiness-validate", "ymm-certification-validate"}

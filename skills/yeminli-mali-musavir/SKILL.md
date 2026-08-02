@@ -16,6 +16,8 @@ Sanal yardımcı YMM değildir; tasdik raporu imzalayamaz, mühürleyemez, idare
 
 Mevzuat haritası için [mevzuat-ve-yetki.md](references/mevzuat-ve-yetki.md), dosya akışı için [tasdik-is-akisi.md](references/tasdik-is-akisi.md) dosyasını oku.
 
+Her vakada `../muhasebecim/references/taxpayer-interest-policy.md` ortak politikasını uygula. Hukuka uygun mükellef lehine düzeltme, kanıt tamamlama, açıklama veya başvuru adımını hazırla. Aleyhe hususu kullanıcı/YMM'ye yerel iç bildirimle eksiksiz göster ve görülme kaydı al. Giderilemeyen hususu rapor etkisi, kapsam sınırlaması, iş kabulü veya çekilme değerlendirmesinden saklama; bağımsızlık ve doğru raporlama “mükellef lehine” gerekçesiyle kaldırılamaz.
+
 ## Zorunlu tasdik döngüsü
 
 1. Tasdik türünü, dönemi, vergi türünü, hukuki dayanağı, güncel tebliğ/rapor formatını ve teslim tarihini belirle.
@@ -28,6 +30,7 @@ Mevzuat haritası için [mevzuat-ve-yetki.md](references/mevzuat-ve-yetki.md), d
 8. Her bulguyu `olgu -> mevzuat -> prosedür -> kanıt -> Python hesabı -> müşteri açıklaması -> sonuç` zincirinde kur.
 9. Raporun tasdik kapsamını açık yaz; kapsam dışı işlem için güvence verme. Değişken parasal had, oran, form ve süreyi sabit kodlama.
 10. Raporu ruhsatlı YMM'nin mesleki incelemesine sun; sistem sonucu yalnızca `DRAFT_FOR_LICENSED_YMM` veya `DRAFT_READINESS_ONLY` olabilir.
+11. Lehe adım ve aleyhe iç bildirim dosyalarını SHA-256 ile bağla; `taxpayer_interest_engine.py` sonucu geçmeden dosyayı kapanışa gönderme.
 
 ## Python ve yerel veri zorunluluğu
 
@@ -38,6 +41,9 @@ Deterministik tasdik kapısını çalıştır:
 ```powershell
 python ..\muhasebecim\scripts\professional_role_engine.py ymm-certification-validate `
   --input ymm-certification.json --output ymm-certification-result.json
+
+python ..\muhasebecim\scripts\taxpayer_interest_engine.py taxpayer-interest-validate `
+  --input taxpayer-interest.json --output taxpayer-interest-result.json
 ```
 
 `PASS`, tasdik yapıldığı anlamına gelmez; yalnızca tanımlı dosya kapılarının geçtiğini gösterir.

@@ -1,7 +1,7 @@
 {
   "name": "muhasebecim",
-  "version": "0.0.2",
-  "description": "Türk muhasebesi, vergi incelemesi hazırlığı ve YMM tasdik desteği için yerel ve deterministik Codex eklentisi",
+  "version": "0.0.3",
+  "description": "Türk muhasebesi, mükellef menfaati, vergi incelemesi ve YMM tasdik desteği için yerel ve deterministik Codex eklentisi",
   "author": {
     "name": "bcancapar-spec",
     "url": "https://github.com/bcancapar-spec"
@@ -14,13 +14,15 @@
     "ymm",
     "thp",
     "vuk",
-    "yerel-analiz"
+    "yerel-analiz",
+    "mukellef-menfaati",
+    "ic-bildirim"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Mali Müşavirim",
-    "shortDescription": "Yerel Türk muhasebe, vergi incelemesi ve YMM tasdik desteği.",
-    "longDescription": "Mali Müşavirim; THP/VUK kontrollerini, vergi incelemesi hazırlığını ve YMM tasdik dosyası kalite kapılarını sürümlü kurallar, resmî kaynak bağları ve denetlenebilir Python çıktılarıyla yerelde yürütür.",
+    "shortDescription": "Yerel muhasebe, mükellef koruma, vergi incelemesi ve YMM desteği.",
+    "longDescription": "Mali Müşavirim; THP/VUK kontrollerini, hukuka uygun mükellef lehine adımları, aleyhe hususların zorunlu yerel iç bildirimini, vergi incelemesi hazırlığını ve YMM tasdik dosyası kalite kapılarını sürümlü kurallar, resmî kaynak bağları ve denetlenebilir Python çıktılarıyla yürütür.",
     "developerName": "bcancapar-spec",
     "category": "Productivity",
     "capabilities": [
@@ -28,11 +30,14 @@
       "Deterministic THP and VUK controls",
       "Tax inspection readiness",
       "YMM certification workpapers",
+      "Lawful taxpayer-protective action gates",
+      "Local adverse-matter internal alerts",
       "Auditable Python receipts"
     ],
     "websiteURL": "https://github.com/bcancapar-spec/mali-musavirim",
     "defaultPrompt": [
       "Mizanımı THP ve VUK kurallarıyla yerelde kontrol et.",
+      "Mükellef lehine hukuka uygun adımı hazırla ve aleyhe hususları yerel iç bildirimde göster.",
       "Vergi incelemesine hazırlık çalışma programı oluştur.",
       "YMM tasdik dosyasının bağımsızlık ve kanıt kapılarını denetle."
     ]

@@ -14,6 +14,7 @@ import case_workflow
 import ingest_sources
 import muhasebecim_engine
 import professional_role_engine
+import taxpayer_interest_engine
 import thp_rule_engine as thp
 
 
@@ -336,14 +337,15 @@ class ReleaseVersionTests(unittest.TestCase):
         project_root = Path(thp.__file__).resolve().parents[3]
         project = tomllib.loads((project_root / "pyproject.toml").read_text(encoding="utf-8"))
         plugin = json.loads((project_root / ".codex-plugin" / "plugin.json").read_text(encoding="utf-8"))
-        self.assertEqual(project["project"]["version"], "0.0.2")
-        self.assertEqual(plugin["version"], "0.0.2")
+        self.assertEqual(project["project"]["version"], "0.0.3")
+        self.assertEqual(plugin["version"], "0.0.3")
         self.assertEqual(plugin["skills"], "./skills/")
-        self.assertEqual(thp.ENGINE_VERSION, "0.0.2")
-        self.assertEqual(muhasebecim_engine.ENGINE_VERSION, "0.0.2")
-        self.assertEqual(case_workflow.VERSION, "0.0.2")
-        self.assertEqual(ingest_sources.VERSION, "0.0.2")
-        self.assertEqual(professional_role_engine.ENGINE_VERSION, "0.0.2")
+        self.assertEqual(thp.ENGINE_VERSION, "0.0.3")
+        self.assertEqual(muhasebecim_engine.ENGINE_VERSION, "0.0.3")
+        self.assertEqual(case_workflow.VERSION, "0.0.3")
+        self.assertEqual(ingest_sources.VERSION, "0.0.3")
+        self.assertEqual(professional_role_engine.ENGINE_VERSION, "0.0.3")
+        self.assertEqual(taxpayer_interest_engine.ENGINE_VERSION, "0.0.3")
 
 
 if __name__ == "__main__":

@@ -11,6 +11,8 @@ Sanal muhakeme yardımcısı olarak çalış; ruhsatlı meslek mensubunun imza, 
 
 Her işte önce işlem tarihini, hesap dönemini, işletme türünü, raporlama amacını ve uygulanacak çerçeveyi belirle. Finansal raporlama kaydı ile VUK/vergi uygulamasını iki ayrı katmanda incele; farkları mutabakatla açıkla.
 
+Her vakada [taxpayer-interest-policy.md](references/taxpayer-interest-policy.md) dosyasını uygula. Mevzuat ve gerçek kanıt içinde en yararlı mükellef koruma adımını hazırla. Aleyhe olguyu iç analizden saklama: yerel iç bildirim oluştur, kullanıcı/SMMM/YMM alıcısını kaydet ve görülme teyidi olmadan vakayı kapatma. Bu ilke hukuka aykırı kayıt, gerçeğe aykırı beyan, kanıt gizleme veya zorunlu açıklamayı atlama izni vermez.
+
 Zihinden hesap yapma. Basit toplama dâhil her aritmetik işlemi, yüzde/oran uygulamasını, tarih ve süre hesabını, sıralamayı, gruplamayı, örneklemeyi, tablo dönüşümünü ve denkliği Python çalıştırarak yap. Ondalıklı değerlerde `float` kullanma; `decimal.Decimal` ve açık yuvarlama kuralı kullan. Girdi dosyasını, çalıştırılan kodu ve makinece okunabilir çıktıyı çalışma dosyalarıyla birlikte koru.
 
 Değişken had, oran, kur, endeks, süre ve yürürlük bilgilerini sabit kodlama. Bunları işlem tarihi için resmî kaynaktan doğrula, kaynağı kaydet ve Python'a açık girdi olarak ver.
@@ -48,8 +50,9 @@ python scripts/case_workflow.py init --case <vaka-dizini> --case-id <kimlik> --a
 8. Tüm hesapları Python ile çalıştır. Hazır işlem uygunsa `scripts/muhasebecim_engine.py` kullan; değilse olaya özgü, yeniden çalıştırılabilir bir `.py` dosyası yaz.
 9. Önerilen yevmiye kaydını oluştur; borç/alacak denkliğini Python ile doğrula. Genel MSUGT planı uygulanıyorsa `scripts/thp_rule_engine.py` ile hesap kodu/adı, sektör, 7/A-7/B, VUK kayıt süresi, dil/para birimi, düzeltme, sıra ve tevsik kapılarını çalıştır. Başka düzenleyici plan varsa genel katalogla otomatik uygunluk verme.
 10. Finansal raporlama sonucu ile VUK matrah/değerleme sonucunu mutabıklaştır; geçici ve sürekli farkları ayır.
-11. Kaynak, yürürlük, hesap, kayıt ve sunum kontrollerini çalıştır. Bir kontrol başarısızsa düzeltip 3. adıma dön.
-12. [output-contract.md](references/output-contract.md) biçiminde teslim et.
+11. En az bir hukuka uygun mükellef lehine adımı fiziksel çalışma kâğıdı olarak hazırla. Aleyhe her husus için yerel iç bildirim, koruma adımı, alıcı ve görülme kaydı oluştur; `scripts/taxpayer_interest_engine.py` kapısını çalıştır.
+12. Kaynak, yürürlük, hesap, kayıt ve sunum kontrollerini çalıştır. Bir kontrol başarısızsa düzeltip 3. adıma dön.
+13. [output-contract.md](references/output-contract.md) biçiminde teslim et.
 
 Son kapıları çalıştır; başarısız kapı varsa ilgili adıma geri dön:
 
@@ -58,7 +61,7 @@ python scripts/case_workflow.py check --case <vaka-dizini>
 python scripts/case_workflow.py finalize --case <vaka-dizini>
 ```
 
-`finalize`, yalnızca kapsam, kaynak, muhakeme çalışma kâğıdı, Python hesapları, gerekli THP/VUK, yevmiye/vergi mutabakatı ve açık husus kontrolleri geçtiğinde durumu `ready_for_professional_review` yapar. THP/VUK kontrolü gereken vakada `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` yoluna yaz. Vaka kapısı motor kararını ve sonuç makbuzu bütünlüğünü doğrular. Bunu dış gönderim veya mesleki onay olarak yorumlama.
+`finalize`, yalnızca kapsam, kaynak, muhakeme çalışma kâğıdı, Python hesapları, mükellef menfaati/iç bildirim, gerekli THP/VUK, yevmiye/vergi mutabakatı ve açık husus kontrolleri geçtiğinde durumu `ready_for_professional_review` yapar. Mükellef menfaati kapısı her vakada zorunludur; sonucu `outputs/taxpayer-interest-result.json` yoluna yaz. Lehe adım ve iç bildirimlerin fiziksel dosyaları ile SHA-256 özetleri doğrulanmadan kapı geçmez. THP/VUK kontrolü gereken vakada `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` yoluna yaz. Vaka kapısı motor kararını ve sonuç makbuzu bütünlüğünü doğrular. Bunu dış gönderim veya mesleki onay olarak yorumlama.
 
 Vergi incelemesi hazırlığında `requires_inspection_readiness` alanını `true` yap ve sonucu `outputs/inspection-readiness-result.json` yoluna; YMM tasdik dosyasında `requires_ymm_certification` alanını `true` yap ve sonucu `outputs/ymm-certification-result.json` yoluna yaz. `case_workflow.py` motor adını, işlem türünü, kararı, yetki sınırını ve SHA-256 makbuzunu birlikte doğrular.
 
@@ -67,6 +70,7 @@ Döngüyü ancak şu çıkış ölçütlerinin tamamı sağlandığında bitir:
 - Sonucu etkileyen çözümsüz olgu kalmaması veya etkisinin senaryolarla gösterilmesi.
 - Her mevzuat sonucunun işlem tarihinde yürürlükte olan birincil kaynağa bağlanması.
 - Her sayının Python girdisi, kodu, yuvarlama kuralı ve çıktısıyla yeniden üretilebilmesi.
+- En az bir uygulanabilir mükellef lehine adımın fiziksel dosya/hash kanıtıyla hazırlanması; aleyhe hususların eksiksiz yerel iç bildirim ve görülme kaydına bağlanması.
 - Yevmiye ve mizan denkliklerinin geçmesi.
 - Genel MSUGT kapsamındaki hesap/kayıt verisinde THP/VUK motor kararının `PASS` veya açıklanmış `PASS_WITH_WARNINGS` olması ve sonuç makbuzunun doğrulanması.
 - Finansal raporlama ve vergi sonuçlarının ayrılması ve mutabakatın açıklanması.
