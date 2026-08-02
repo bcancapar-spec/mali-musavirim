@@ -1,0 +1,4 @@
+interface:
+  display_name: "Muhasebecim"
+  short_description: "Turkish accounting reasoning and source ingest"
+  default_prompt: "Use $muhasebecim to analyze this Turkish accounting case with cited rules and auditable Python calculations."

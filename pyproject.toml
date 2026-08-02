@@ -1,0 +1,17 @@
+[project]
+name = "muhasebecim"
+version = "0.1.0"
+description = "Local-first Turkish accounting reasoning and deterministic Python calculations"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [{ name = "Bayram Can Çapar" }]
+dependencies = []
+
+[project.optional-dependencies]
+pdf = ["pypdf>=6,<7"]
+spreadsheets = ["openpyxl>=3.1,<4"]
+
+[tool.muhasebecim]
+skill_path = "skills/muhasebecim"
+official_manifest = "manifests/official-sources.json"
+official_corpus = "corpus/official"

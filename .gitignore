@@ -1,0 +1,35 @@
+# Python caches and local environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local accounting data and generated case work
+cases/
+corpus/
+.muhasebecim/
+
+# Customer/accounting source files must remain local
+*.xlsx
+*.xlsm
+*.xls
+*.csv
+*.tsv
+*.pdf
+
+# Local secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
