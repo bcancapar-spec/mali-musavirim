@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vergi Müfettişi Bakışı"
+  short_description: "Vergi incelemesi hazırlığı ve kanıt zinciri kontrolleri"
+  default_prompt: "Use $vergi-mufettisi to prepare this tax examination workfile locally with cited authority limits and deterministic Python gates."

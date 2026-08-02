@@ -1,0 +1,634 @@
+{
+  "schema_version": 1,
+  "catalog_version": "2026.08.02-1",
+  "verified_through": "2026-08-02",
+  "framework": "Turkish tax inspection readiness and YMM certification workfile gates",
+  "operations": [
+    "inspection-readiness-validate",
+    "ymm-certification-validate"
+  ],
+  "sources": [
+    {
+      "id": "VUK-5",
+      "title": "213 sayılı Vergi Usul Kanunu madde 5",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "Vergi mahremiyeti",
+      "status": "in_force"
+    },
+    {
+      "id": "VUK-134-142",
+      "title": "213 sayılı Vergi Usul Kanunu maddeler 134-142",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "Vergi incelemesinin amaç, yetki, yer, usul, tutanak ve arama hükümleri",
+      "status": "in_force"
+    },
+    {
+      "id": "VUK-140",
+      "title": "213 sayılı Vergi Usul Kanunu madde 140",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "İnceleme usulü, bildirim, süre ve rapor değerlendirme",
+      "status": "in_force"
+    },
+    {
+      "id": "VUK-141",
+      "title": "213 sayılı Vergi Usul Kanunu madde 141",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "İnceleme tutanağı ve ilgilinin itiraz/mülahazası",
+      "status": "in_force"
+    },
+    {
+      "id": "VUK-256",
+      "title": "213 sayılı Vergi Usul Kanunu madde 256",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "Defter, belge ve elektronik kayıtların ibrazı",
+      "status": "in_force"
+    },
+    {
+      "id": "VUK-359-367",
+      "title": "213 sayılı Vergi Usul Kanunu maddeler 359 ve 367",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "pinpoint": "Kaçakçılık fiilleri ve ceza kovuşturması usulü",
+      "status": "in_force"
+    },
+    {
+      "id": "VI-YON-4-8",
+      "title": "Vergi İncelemelerinde Uyulacak Usul ve Esaslar Hakkında Yönetmelik maddeler 4-8",
+      "authority": "Hazine ve Maliye Bakanlığı",
+      "url": "https://ms.hmb.gov.tr/uploads/2022/03/Vergi-Incelemelerinde-Uyulacak-Usul-ve-Esaslar-Hakkinda-Yonetmelik.pdf",
+      "pinpoint": "Temel ilkeler, görev, hazırlık ve inceleme dosyası",
+      "status": "in_force_check_current_law"
+    },
+    {
+      "id": "VI-YON-12-23",
+      "title": "Vergi İncelemelerinde Uyulacak Usul ve Esaslar Hakkında Yönetmelik maddeler 12-23",
+      "authority": "Hazine ve Maliye Bakanlığı",
+      "url": "https://ms.hmb.gov.tr/uploads/2022/03/Vergi-Incelemelerinde-Uyulacak-Usul-ve-Esaslar-Hakkinda-Yonetmelik.pdf",
+      "pinpoint": "İbraz, tutanak, rapor ve süre",
+      "status": "in_force_check_current_law"
+    },
+    {
+      "id": "VDK-HAKLAR",
+      "title": "Vergi İncelemesinde Mükellef Hakları",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "url": "https://vdk.hmb.gov.tr/vergi-incelemesinde-mukellef-haklari",
+      "pinpoint": "Kimlik, kapsam, yazılı talep, tutanak, gizlilik ve takip hakları",
+      "status": "administrative_view"
+    },
+    {
+      "id": "VDK-YUKUMLULUK",
+      "title": "Vergi İncelemesinde Mükellef Yükümlülükleri",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "url": "https://vdk.hmb.gov.tr/vergi-incelemesinde-mukellef-yukumlulukleri",
+      "pinpoint": "Defter, belge, elektronik ortam ve erişim bilgileri",
+      "status": "administrative_view"
+    },
+    {
+      "id": "3568-2B",
+      "title": "3568 sayılı Kanun madde 2/B",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "pinpoint": "YMM'nin işleri ve defter tutma yasağı",
+      "status": "in_force"
+    },
+    {
+      "id": "3568-11",
+      "title": "3568 sayılı Kanun madde 11",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "pinpoint": "Bağımsızlık, tarafsızlık, dürüstlük ve özen yemini",
+      "status": "in_force"
+    },
+    {
+      "id": "3568-12",
+      "title": "3568 sayılı Kanun madde 12",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "url": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "pinpoint": "Tasdik, kapsam ve sorumluluk",
+      "status": "in_force"
+    },
+    {
+      "id": "CALISMA-38-41",
+      "title": "SMMM ve YMM Çalışma Usul Yönetmeliği maddeler 38-41",
+      "authority": "TÜRMOB",
+      "url": "https://www.turmob.org.tr/Arsiv/FCKEditor/userfiles/file/2026Yonetm/4-CalismaUsul.pdf",
+      "pinpoint": "Tasdik, ilişki engeli, mühür ve sorumluluk",
+      "status": "in_force"
+    },
+    {
+      "id": "CALISMA-50-52",
+      "title": "SMMM ve YMM Çalışma Usul Yönetmeliği maddeler 50-52",
+      "authority": "TÜRMOB",
+      "url": "https://www.turmob.org.tr/Arsiv/FCKEditor/userfiles/file/2026Yonetm/4-CalismaUsul.pdf",
+      "pinpoint": "Denetim faaliyeti, yazılı sözleşme ve işletmeyi tanıma",
+      "status": "in_force"
+    },
+    {
+      "id": "TASDIK-1-15",
+      "title": "YMM Tasdik Yönetmeliği maddeler 1, 4 ve 14-17",
+      "authority": "TÜRMOB",
+      "url": "https://www.turmob.org.tr/Arsiv/FCKEditor/userfiles/file/3568YASAYONETMELIK7NISAN2025/3-YMMTasdik.pdf",
+      "pinpoint": "Amaç, tasdik, kanıt, denetim teknikleri, hata/hile ve çalışma kâğıtları",
+      "status": "in_force"
+    },
+    {
+      "id": "YMM-GT-27",
+      "title": "27 Sıra No.lu YMM Genel Tebliği",
+      "authority": "TÜRMOB / Resmî Gazete arşivi",
+      "url": "https://www.turmob.org.tr/arsiv/mbs/resmigazete/24252%281%29.htm",
+      "pinpoint": "Karşıt inceleme ve bilgi-belge talebi",
+      "status": "in_force_check_current_communique_chain"
+    }
+  ],
+  "rules": {
+    "inspection-readiness-validate": [
+      {
+        "rule_id": "VI-YETKI-001",
+        "field_path": "engagement.authority_evidence",
+        "test": "non_empty",
+        "expected": null,
+        "condition": {"field_path": "engagement.mode", "equals": "authorized_inspector_support"},
+        "severity": "BLOCK",
+        "message": "Yetkili inceleme desteği için görevlendirme/yetki kanıtı kayıtlı olmalıdır.",
+        "source_refs": ["VUK-134-142", "VI-YON-4-8"]
+      },
+      {
+        "rule_id": "VI-GOREV-001",
+        "field_path": "engagement.assignment_reference",
+        "test": "non_empty",
+        "expected": null,
+        "condition": {"field_path": "engagement.mode", "equals": "authorized_inspector_support"},
+        "severity": "BLOCK",
+        "message": "Yetkili modda inceleme türü, konu ve dönemi belirleyen görev referansı bulunmalıdır.",
+        "source_refs": ["VI-YON-4-8"]
+      },
+      {
+        "rule_id": "VI-BASLAMA-001",
+        "field_path": "engagement.start_notice_present",
+        "test": "equals",
+        "expected": true,
+        "condition": {"field_path": "engagement.mode", "equals": "authorized_inspector_support"},
+        "severity": "BLOCK",
+        "message": "Yetkili modda kapsam ve başlama bildirimi bulunmalıdır.",
+        "source_refs": ["VUK-140"]
+      },
+      {
+        "rule_id": "VI-BASLAMA-002",
+        "field_path": "engagement.start_notice_reference",
+        "test": "non_empty",
+        "expected": null,
+        "condition": {"field_path": "engagement.mode", "equals": "authorized_inspector_support"},
+        "severity": "BLOCK",
+        "message": "Başlama bildiriminin dosya referansı kaydedilmelidir.",
+        "source_refs": ["VUK-140"]
+      },
+      {
+        "rule_id": "VI-GUNCEL-001",
+        "field_path": "engagement.current_law_verified",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "İşlem tarihindeki konsolide VUK ve ilgili ikincil mevzuat doğrulanmalıdır.",
+        "source_refs": ["VUK-134-142", "VI-YON-12-23"]
+      },
+      {
+        "rule_id": "VI-GIZLILIK-001",
+        "field_path": "engagement.secrecy_controls_confirmed",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Vergi mahremiyeti ve erişim kontrolleri belgelenmelidir.",
+        "source_refs": ["VUK-5"]
+      },
+      {
+        "rule_id": "VI-YEREL-001",
+        "field_path": "engagement.data_location",
+        "test": "equals",
+        "expected": "local",
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Mükellef verisi yalnızca yerel ortamda işlenmelidir.",
+        "source_refs": ["VUK-5"]
+      },
+      {
+        "rule_id": "VI-AMAC-001",
+        "field_path": "work_program.purpose_and_scope_defined",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Amaç, kapsam, vergi türü ve dönem tanımlanmalıdır.",
+        "source_refs": ["VUK-134-142", "VI-YON-4-8"]
+      },
+      {
+        "rule_id": "VI-RISK-001",
+        "field_path": "work_program.risk_hypotheses_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Risk hipotezleri ve onları test edecek prosedürler belgelenmelidir.",
+        "source_refs": ["VI-YON-4-8"]
+      },
+      {
+        "rule_id": "VI-MUTABAKAT-001",
+        "field_path": "work_program.books_records_declarations_reconciled",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Defter, kayıt, mali tablo, beyanname ve ödeme zinciri mutabıklaştırılmalıdır.",
+        "source_refs": ["VUK-134-142", "VUK-256"]
+      },
+      {
+        "rule_id": "VI-IBRAZ-001",
+        "field_path": "work_program.document_request_scope_tracked",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Bilgi ve belge taleplerinin yazılı kapsamı ve teslim izi tutulmalıdır.",
+        "source_refs": ["VUK-256", "VDK-YUKUMLULUK"]
+      },
+      {
+        "rule_id": "VI-KANIT-001",
+        "field_path": "work_program.evidence_chain_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Her bulgunun edinim kaynağı, belge referansı ve hesap izi bulunmalıdır.",
+        "source_refs": ["VI-YON-4-8", "VI-YON-12-23"]
+      },
+      {
+        "rule_id": "VI-HAK-001",
+        "field_path": "work_program.taxpayer_rights_reviewed",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Mükellef hakları kontrol listesi tamamlanmalıdır.",
+        "source_refs": ["VUK-134-142", "VDK-HAKLAR"]
+      },
+      {
+        "rule_id": "VI-SURE-001",
+        "field_path": "work_program.procedural_deadlines_calculated",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Başlama, ibraz, inceleme ve rapor süreleri güncel mevzuat girdileriyle Python'da hesaplanmalıdır.",
+        "source_refs": ["VUK-140", "VI-YON-12-23"]
+      },
+      {
+        "rule_id": "VI-ORNEKLEM-001",
+        "field_path": "work_program.sampling_method_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Evren, örneklem yöntemi ve seçim izi belgelenmelidir.",
+        "source_refs": ["VI-YON-4-8"]
+      },
+      {
+        "rule_id": "VI-BULGU-001",
+        "field_path": "work_program.findings_structure_complete",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Bulgular olgu, hüküm, hesap, kanıt, açıklama ve sonuç zincirinde kurulmalıdır.",
+        "source_refs": ["VUK-134-142", "VI-YON-12-23"]
+      },
+      {
+        "rule_id": "VI-ACIKLAMA-001",
+        "field_path": "work_program.taxpayer_explanations_recorded",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Mükellef itiraz, mülahaza ve açıklamaları ayrı ve değiştirilmeden kaydedilmelidir.",
+        "source_refs": ["VUK-141"]
+      },
+      {
+        "rule_id": "VI-359-001",
+        "field_path": "work_program.potential_crime_escalation_protocol",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Olası VUK 359 emareleri için yetkili eskalasyon ve kanıt koruma protokolü bulunmalıdır.",
+        "source_refs": ["VUK-359-367"]
+      },
+      {
+        "rule_id": "VI-RDK-001",
+        "field_path": "work_program.report_review_gate",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Rapor değerlendirme veya eşdeğer mesleki kalite kapısı tanımlanmalıdır.",
+        "source_refs": ["VUK-140", "VI-YON-12-23"]
+      },
+      {
+        "rule_id": "VI-INCELEME-001",
+        "field_path": "work_program.professional_review",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Yetkili veya ruhsatlı profesyonel incelemesi tamamlanmalıdır.",
+        "source_refs": ["VUK-134-142"]
+      }
+    ],
+    "ymm-certification-validate": [
+      {
+        "rule_id": "YMM-RUHSAT-001",
+        "field_path": "engagement.licensed_ymm_confirmed",
+        "test": "equals",
+        "expected": true,
+        "condition": {"field_path": "engagement.mode", "equals": "licensed_ymm_support"},
+        "severity": "BLOCK",
+        "message": "Lisanslı YMM desteği modunda geçerli YMM sıfatı doğrulanmalıdır.",
+        "source_refs": ["3568-2B", "3568-11"]
+      },
+      {
+        "rule_id": "YMM-RUHSAT-002",
+        "field_path": "engagement.license_evidence",
+        "test": "non_empty",
+        "expected": null,
+        "condition": {"field_path": "engagement.mode", "equals": "licensed_ymm_support"},
+        "severity": "BLOCK",
+        "message": "Ruhsat/yetki kanıtının dosya referansı bulunmalıdır.",
+        "source_refs": ["3568-2B", "CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-LISTE-001",
+        "field_path": "engagement.working_list_confirmed",
+        "test": "equals",
+        "expected": true,
+        "condition": {"field_path": "engagement.mode", "equals": "licensed_ymm_support"},
+        "severity": "BLOCK",
+        "message": "YMM'nin çalışanlar listesi kaydı doğrulanmalıdır.",
+        "source_refs": ["CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-MUHUR-001",
+        "field_path": "engagement.seal_available",
+        "test": "equals",
+        "expected": true,
+        "condition": {"field_path": "engagement.mode", "equals": "licensed_ymm_support"},
+        "severity": "BLOCK",
+        "message": "Tasdik için YMM mühürüne ilişkin kontrol tamamlanmalıdır.",
+        "source_refs": ["CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-SOZLESME-001",
+        "field_path": "engagement.written_contract_present",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Yazılı denetim/tasdik sözleşmesi bulunmalıdır.",
+        "source_refs": ["CALISMA-50-52"]
+      },
+      {
+        "rule_id": "YMM-SOZLESME-002",
+        "field_path": "engagement.certification_relationship_stated",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Sözleşmede denetim işinin tasdikle ilişkisi açıkça belirtilmelidir.",
+        "source_refs": ["CALISMA-50-52"]
+      },
+      {
+        "rule_id": "YMM-BAGIMSIZLIK-001",
+        "field_path": "engagement.independence_confirmed",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Bağımsızlık ve tarafsızlık değerlendirmesi tamamlanmalıdır.",
+        "source_refs": ["3568-11", "CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-ILISKI-001",
+        "field_path": "engagement.prohibited_relationship_absent",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdiğe engel yakınlık ve ilişki bulunmadığı belgelenmelidir.",
+        "source_refs": ["CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-DEFTER-001",
+        "field_path": "engagement.bookkeeping_separation_confirmed",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "YMM tasdik görevi ile defter tutma/muhasebe bürosu faaliyeti ayrımı doğrulanmalıdır.",
+        "source_refs": ["3568-2B"]
+      },
+      {
+        "rule_id": "YMM-KAPSAM-001",
+        "field_path": "engagement.scope_document_present",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik kapsamı, kapsam dışı işlemler ve sorumluluk alanı yazılı olmalıdır.",
+        "source_refs": ["3568-12", "CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-GUNCEL-001",
+        "field_path": "engagement.current_communique_verified",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik türüne ilişkin güncel tebliğ zinciri ve rapor formatı doğrulanmalıdır.",
+        "source_refs": ["3568-12", "TASDIK-1-15", "YMM-GT-27"]
+      },
+      {
+        "rule_id": "YMM-DEGISKEN-001",
+        "field_path": "engagement.variable_thresholds_as_inputs",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Değişken had, oran ve süreler sabit kodlanmamalı; tarihli kaynak girdisi olmalıdır.",
+        "source_refs": ["3568-12", "TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-YEREL-001",
+        "field_path": "engagement.data_location",
+        "test": "equals",
+        "expected": "local",
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Müşteri tasdik verisi yalnızca yerel ortamda işlenmelidir.",
+        "source_refs": ["3568-11"]
+      },
+      {
+        "rule_id": "YMM-TANIMA-001",
+        "field_path": "work_program.client_and_engagement_understood",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "İşletme ve tasdik görevi kabulden önce yeterli düzeyde tanınmalıdır.",
+        "source_refs": ["CALISMA-50-52"]
+      },
+      {
+        "rule_id": "YMM-ONEMLILIK-001",
+        "field_path": "work_program.materiality_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Önemlilik ve performans önemliliği Python hesap iziyle belgelenmelidir.",
+        "source_refs": ["TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-PLAN-001",
+        "field_path": "work_program.audit_plan_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Risk, prosedür, sorumlu ve zaman bütçesini içeren denetim planı bulunmalıdır.",
+        "source_refs": ["CALISMA-50-52", "TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-KAYIT-001",
+        "field_path": "work_program.books_and_documents_examined",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik kapsamındaki defter ve belgeler incelenmelidir.",
+        "source_refs": ["3568-12", "TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-MUTABAKAT-001",
+        "field_path": "work_program.financial_statements_reconciled",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Finansal tablolar kayıtlarla mutabıklaştırılmalıdır.",
+        "source_refs": ["3568-12", "CALISMA-50-52"]
+      },
+      {
+        "rule_id": "YMM-BEYAN-001",
+        "field_path": "work_program.declarations_reconciled",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Beyannameler defter, mali tablo ve hesap izleriyle mutabıklaştırılmalıdır.",
+        "source_refs": ["3568-12", "CALISMA-50-52"]
+      },
+      {
+        "rule_id": "YMM-KANIT-001",
+        "field_path": "work_program.sufficient_reliable_evidence",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik sonucunu destekleyen yeterli ve güvenilir kanıt elde edilmelidir.",
+        "source_refs": ["TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-ORNEKLEM-001",
+        "field_path": "work_program.sampling_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Evren, örneklem yöntemi ve seçim izi belgelenmelidir.",
+        "source_refs": ["TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-KARSIT-001",
+        "field_path": "work_program.counter_examinations_completed_or_explained",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Gerekli karşıt incelemeler tamamlanmalı veya yapılamama nedeni ve rapor etkisi açıklanmalıdır.",
+        "source_refs": ["TASDIK-1-15", "YMM-GT-27"]
+      },
+      {
+        "rule_id": "YMM-BULGU-001",
+        "field_path": "work_program.findings_resolved_or_qualified",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Maddi bulgular giderilmeli veya rapor sonucuna/kapsamına açıkça taşınmalıdır.",
+        "source_refs": ["3568-12", "TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-RAPOR-001",
+        "field_path": "work_program.report_scope_explicit",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik kapsamı ve sorumluluk alanı raporda açık olmalıdır.",
+        "source_refs": ["3568-12", "CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-RAPOR-002",
+        "field_path": "work_program.report_form_current",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Kullanılan rapor formatının güncelliği doğrulanmalıdır.",
+        "source_refs": ["3568-12", "TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-TEMSIL-001",
+        "field_path": "work_program.management_responses_documented",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Yönetime bildirilen hata/bulgular ile düzeltme ve açıklama yanıtları dosyalanmalıdır.",
+        "source_refs": ["TASDIK-1-15"]
+      },
+      {
+        "rule_id": "YMM-SORUMLULUK-001",
+        "field_path": "work_program.responsibility_acknowledged",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Tasdik kapsamındaki kanuni sorumluluk yetkili YMM tarafından değerlendirilmelidir.",
+        "source_refs": ["3568-12", "CALISMA-38-41"]
+      },
+      {
+        "rule_id": "YMM-INCELEME-001",
+        "field_path": "work_program.professional_review",
+        "test": "equals",
+        "expected": true,
+        "condition": null,
+        "severity": "BLOCK",
+        "message": "Ruhsatlı YMM mesleki incelemesi tamamlanmalıdır.",
+        "source_refs": ["3568-11", "3568-12"]
+      }
+    ]
+  }
+}

@@ -2,9 +2,13 @@
 
 Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî kaynak sürümleyen ve bütün sayısal işlemleri denetlenebilir Python koduyla yapan Codex yeteneği.
 
+**Güncel sürüm:** `v0.0.2`
+
 **İlk public pilot sürüm:** `v0.0.1`
 
 Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
+
+Vergi müfettişi bakışı, vergi incelemesi hazırlığı ve YMM tasdik kapıları için [Vergi Müfettişi ve YMM Uygulama Rehberi](docs/VERGI-MUFETTISI-YMM-REHBERI.md) dosyasını okuyun.
 
 ## Mali müşavir için kısa açıklama
 
@@ -23,6 +27,20 @@ Sonuçtaki `PASS`, yalnız tanımlı mekanik kontrollerin geçtiğini gösterir.
 - Otomatik testler ve 2 Ağustos 2026 tarihinde yeniden doğrulanmış, sürüm izli resmî kaynak korpusu.
 - CSV/TSV/JSON/TXT, metin katmanlı PDF ve XLSX/XLSM müşteri kayıtlarını tamamen yerelde alan vaka ingest'i; elektronik tablo formülleri ve makroları çalıştırılmaz.
 - Sürümlü genel THP kataloğu üzerinde 271 tanımlı hesap, iki proje hesabı aralığı ve 10 kaynak kaydıyla çalışan deterministik THP/VUK kural motoru.
+- VUK 5 ve 134-142/256/359/367 ile VDK usullerini iş akışına dönüştüren `$vergi-mufettisi` yeteneği.
+- 3568 sayılı Kanun ve YMM yönetmeliklerinden türetilen bağımsızlık, sözleşme, kanıt, karşıt inceleme ve rapor kapılarına sahip `$yeminli-mali-musavir` yeteneği.
+- 17 mevzuat kaynağına bağlı 48 kuralla çalışan `professional_role_engine.py`; yetki/ruhsat eksikliğinde fail-closed, aynı girdide aynı SHA-256 makbuzu.
+- Codex eklenti manifesti: tek kurulumda muhasebe, vergi incelemesi ve YMM tasdik uzmanlıkları.
+
+## Codex eklentisi ve uzmanlıklar
+
+Depo kökündeki `.codex-plugin/plugin.json`, `skills/` altındaki üç yeteneği tek eklenti olarak kaydeder:
+
+- `$muhasebecim`: genel muhasebe, THP/VUK, raporlama çerçeveleri ve Python hesapları,
+- `$vergi-mufettisi`: vergi incelemesi hazırlığı, hak/yükümlülük ve kanıt dosyası,
+- `$yeminli-mali-musavir`: YMM tasdik kabulü, bağımsızlık, denetim ve rapor kalite kapıları.
+
+Rol motoru kamu yetkisi, ruhsat, imza veya mühür üretmez. Her sonuçta `professional_act_permitted` alanı `false` kalır.
 
 ## Deterministik THP/VUK motoru
 
@@ -69,6 +87,14 @@ Yalnız THP/VUK kural motoru dayanaklarını yenilemek için hedefli manifesti k
 ```powershell
 python .\skills\muhasebecim\scripts\ingest_sources.py ingest `
   --manifest .\manifests\thp-vuk-sources.json `
+  --corpus .\corpus\official
+```
+
+Vergi incelemesi ve YMM tasdik dayanaklarını yerel korpusa al:
+
+```powershell
+python .\skills\muhasebecim\scripts\ingest_sources.py ingest `
+  --manifest .\manifests\professional-roles-sources.json `
   --corpus .\corpus\official
 ```
 
@@ -122,18 +148,30 @@ python .\skills\muhasebecim\scripts\thp_rule_engine.py journal-validate `
 
 Gerçek vaka kapısında `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` olarak üret. Tam girdi sözleşmesi ve kural haritası [thp-control.md](skills/muhasebecim/references/thp-control.md) dosyasındadır.
 
+Vergi incelemesi ve YMM tasdik kapılarını çalıştır:
+
+```powershell
+python .\skills\muhasebecim\scripts\professional_role_engine.py catalog-audit
+python .\skills\muhasebecim\scripts\professional_role_engine.py `
+  inspection-readiness-validate --example --output .\inspection-readiness.json
+python .\skills\muhasebecim\scripts\professional_role_engine.py `
+  ymm-certification-validate --example --output .\ymm-certification.json
+```
+
+Vaka kapısında ilgili `requires_inspection_readiness` veya `requires_ymm_certification` alanını `true` yapın. Motor sonuçlarını sırasıyla `outputs/inspection-readiness-result.json` ve `outputs/ymm-certification-result.json` yollarına yazın.
+
 ## Yapı
 
 ```text
 muhasebecim/
-├── docs/                            # Mali müşavir kullanım rehberi
+├── .codex-plugin/plugin.json         # Üç yeteneği kaydeden eklenti manifesti
+├── docs/                            # Mali müşavir ve uzmanlık rehberleri
 ├── corpus/official/                 # Yerel, hash denetimli başlangıç korpusu
-├── manifests/official-sources.json  # Resmî kaynak manifesti
-└── skills/muhasebecim/
-    ├── SKILL.md
-    ├── agents/openai.yaml
-    ├── references/                  # Meslek, standart, VUK ve kontrol bilgisi
-    └── scripts/                     # Python motorları, THP kataloğu ve testler
+├── manifests/                       # Genel ve hedefli resmî kaynak manifestleri
+└── skills/
+    ├── muhasebecim/                 # Muhasebe, THP/VUK ve ortak Python motorları
+    ├── vergi-mufettisi/             # Vergi incelemesi hazırlığı
+    └── yeminli-mali-musavir/        # YMM tasdik dosyası desteği
 ```
 
 ## Sınır

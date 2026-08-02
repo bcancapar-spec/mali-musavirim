@@ -27,6 +27,8 @@ Müşteri kabulü, sözleşme, ilk kurulum, belge akışı, kayıt, aylık kapan
 
 SMMM'nin defter tutma, tablo/beyanname düzenleme, sistem kurma, müşavirlik, inceleme ve raporlama işleri ile YMM'nin tasdik işini birbirine karıştırma. Yetki veya sorumluluk gerektiren dış gönderimi yalnızca kullanıcı açıkça ister ve uygun araç/yetki mevcutsa hazırla; aksi halde taslak ve kontrol çıktısı üret.
 
+Özel bir vergi incelemesi hazırlığı veya müfettiş bakışlı risk/kanıt çalışmasında `$vergi-mufettisi`; tam tasdik, KDV iadesi, karşıt inceleme veya diğer YMM tasdik dosyasında `$yeminli-mali-musavir` yeteneğini kullan. Bu uzmanlık kapıları kamu yetkisi, ruhsat, imza veya mühür oluşturmaz.
+
 ## Uçtan uca tamamlama döngüsü
 
 Yeni ve dosyalı bir işte vaka klasörünü Python ile aç:
@@ -57,6 +59,8 @@ python scripts/case_workflow.py finalize --case <vaka-dizini>
 ```
 
 `finalize`, yalnızca kapsam, kaynak, muhakeme çalışma kâğıdı, Python hesapları, gerekli THP/VUK, yevmiye/vergi mutabakatı ve açık husus kontrolleri geçtiğinde durumu `ready_for_professional_review` yapar. THP/VUK kontrolü gereken vakada `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` yoluna yaz. Vaka kapısı motor kararını ve sonuç makbuzu bütünlüğünü doğrular. Bunu dış gönderim veya mesleki onay olarak yorumlama.
+
+Vergi incelemesi hazırlığında `requires_inspection_readiness` alanını `true` yap ve sonucu `outputs/inspection-readiness-result.json` yoluna; YMM tasdik dosyasında `requires_ymm_certification` alanını `true` yap ve sonucu `outputs/ymm-certification-result.json` yoluna yaz. `case_workflow.py` motor adını, işlem türünü, kararı, yetki sınırını ve SHA-256 makbuzunu birlikte doğrular.
 
 Döngüyü ancak şu çıkış ölçütlerinin tamamı sağlandığında bitir:
 

@@ -1,0 +1,40 @@
+{
+  "name": "muhasebecim",
+  "version": "0.0.2",
+  "description": "Türk muhasebesi, vergi incelemesi hazırlığı ve YMM tasdik desteği için yerel ve deterministik Codex eklentisi",
+  "author": {
+    "name": "bcancapar-spec",
+    "url": "https://github.com/bcancapar-spec"
+  },
+  "repository": "https://github.com/bcancapar-spec/mali-musavirim",
+  "license": "MIT",
+  "keywords": [
+    "muhasebe",
+    "vergi-incelemesi",
+    "ymm",
+    "thp",
+    "vuk",
+    "yerel-analiz"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Mali Müşavirim",
+    "shortDescription": "Yerel Türk muhasebe, vergi incelemesi ve YMM tasdik desteği.",
+    "longDescription": "Mali Müşavirim; THP/VUK kontrollerini, vergi incelemesi hazırlığını ve YMM tasdik dosyası kalite kapılarını sürümlü kurallar, resmî kaynak bağları ve denetlenebilir Python çıktılarıyla yerelde yürütür.",
+    "developerName": "bcancapar-spec",
+    "category": "Productivity",
+    "capabilities": [
+      "Local accounting analysis",
+      "Deterministic THP and VUK controls",
+      "Tax inspection readiness",
+      "YMM certification workpapers",
+      "Auditable Python receipts"
+    ],
+    "websiteURL": "https://github.com/bcancapar-spec/mali-musavirim",
+    "defaultPrompt": [
+      "Mizanımı THP ve VUK kurallarıyla yerelde kontrol et.",
+      "Vergi incelemesine hazırlık çalışma programı oluştur.",
+      "YMM tasdik dosyasının bağımsızlık ve kanıt kapılarını denetle."
+    ]
+  }
+}

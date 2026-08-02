@@ -1,0 +1,141 @@
+{
+  "as_of_date": "2026-08-02",
+  "download_timeout_seconds": 180,
+  "allowed_hosts": [
+    "hmb.gov.tr",
+    "mevzuat.gov.tr",
+    "turmob.org.tr"
+  ],
+  "documents": [
+    {
+      "uri": "https://www.mevzuat.gov.tr/mevzuatmetin/1.4.213.pdf",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "title": "213 sayılı Vergi Usul Kanunu — konsolide metin",
+      "document_type": "law",
+      "publication_date": "1961-01-10",
+      "effective_from": "1961-01-10",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["vuk", "vergi-incelemesi", "mahremiyet", "ibraz"],
+      "pinpoint_hint": "Madde 5, 134-142, 256, 359 ve 367",
+      "scope": "public"
+    },
+    {
+      "uri": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
+      "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
+      "title": "3568 sayılı Meslek Kanunu — konsolide metin",
+      "document_type": "law",
+      "publication_date": "1989-06-13",
+      "effective_from": "1989-06-13",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["3568", "ymm", "tasdik", "sorumluluk"],
+      "pinpoint_hint": "Madde 2/B, 11 ve 12",
+      "scope": "public"
+    },
+    {
+      "uri": "https://ms.hmb.gov.tr/uploads/2022/03/Vergi-Incelemelerinde-Uyulacak-Usul-ve-Esaslar-Hakkinda-Yonetmelik.pdf",
+      "authority": "Hazine ve Maliye Bakanlığı",
+      "title": "Vergi İncelemelerinde Uyulacak Usul ve Esaslar Hakkında Yönetmelik — işlenmiş PDF",
+      "document_type": "regulation",
+      "publication_date": "2011-10-31",
+      "effective_from": "2011-10-31",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["vergi-incelemesi", "usul", "gorevlendirme", "rapor"],
+      "pinpoint_hint": "Madde 4-8, 12, 16-17, 20 ve 23; VUK'un daha yeni konsolide hükmüyle karşılaştır",
+      "scope": "public"
+    },
+    {
+      "uri": "https://vdk.hmb.gov.tr/vergi-incelemesi-genel-bilgiler",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "title": "Vergi İncelemesi Genel Bilgiler",
+      "document_type": "official_guidance",
+      "publication_date": null,
+      "effective_from": null,
+      "effective_to": null,
+      "status": "administrative_view",
+      "tags": ["vergi-incelemesi", "surec", "risk", "veri-analizi"],
+      "pinpoint_hint": "Amaç, kapsam, türler ve süreç",
+      "scope": "public"
+    },
+    {
+      "uri": "https://vdk.hmb.gov.tr/vergi-mufettislerinin-gorev-ve-yetkileri",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "title": "Vergi Müfettişlerinin Görev ve Yetkileri",
+      "document_type": "official_guidance",
+      "publication_date": null,
+      "effective_from": null,
+      "effective_to": null,
+      "status": "administrative_view",
+      "tags": ["vergi-mufettisi", "gorev", "yetki", "sinir"],
+      "pinpoint_hint": "Vergi incelemesi, teftiş, idari soruşturma, TPKK, MASAK ve araştırma görevleri",
+      "scope": "public"
+    },
+    {
+      "uri": "https://vdk.hmb.gov.tr/vergi-incelemesinde-mukellef-haklari",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "title": "Vergi İncelemesinde Mükellef Hakları",
+      "document_type": "official_guidance",
+      "publication_date": null,
+      "effective_from": null,
+      "effective_to": null,
+      "status": "administrative_view",
+      "tags": ["vergi-incelemesi", "mukellef-haklari", "mahremiyet"],
+      "pinpoint_hint": "Kimlik, kapsam, yazılı talep, süre, tutanak ve gizlilik hakları",
+      "scope": "public"
+    },
+    {
+      "uri": "https://vdk.hmb.gov.tr/vergi-incelemesinde-mukellef-yukumlulukleri",
+      "authority": "Vergi Denetim Kurulu Başkanlığı",
+      "title": "Vergi İncelemesinde Mükellef Yükümlülükleri",
+      "document_type": "official_guidance",
+      "publication_date": null,
+      "effective_from": null,
+      "effective_to": null,
+      "status": "administrative_view",
+      "tags": ["vergi-incelemesi", "ibraz", "elektronik-kayit"],
+      "pinpoint_hint": "VUK 256 kapsamında defter, belge, elektronik ortam, erişim ve okunabilirlik",
+      "scope": "public"
+    },
+    {
+      "uri": "https://www.turmob.org.tr/Arsiv/FCKEditor/userfiles/file/2026Yonetm/4-CalismaUsul.pdf",
+      "authority": "TÜRMOB",
+      "title": "SMMM ve YMM Çalışma Usul ve Esasları Hakkında Yönetmelik — 2026 işlenmiş metin",
+      "document_type": "regulation",
+      "publication_date": "1990-01-03",
+      "effective_from": "1990-01-03",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["ymm", "bagimsizlik", "sozlesme", "denetim"],
+      "pinpoint_hint": "Madde 19, 38-41 ve 50-52",
+      "scope": "public"
+    },
+    {
+      "uri": "https://www.turmob.org.tr/Arsiv/FCKEditor/userfiles/file/3568YASAYONETMELIK7NISAN2025/3-YMMTasdik.pdf",
+      "authority": "TÜRMOB",
+      "title": "Yeminli Mali Müşavirlerin Tasdik Edecekleri Belgeler, Tasdik Konuları, Tasdike İlişkin Usul ve Esaslar Hakkında Yönetmelik — işlenmiş metin",
+      "document_type": "regulation",
+      "publication_date": "1990-01-02",
+      "effective_from": "1990-01-02",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["ymm", "tasdik", "kanit", "denetim-teknikleri"],
+      "pinpoint_hint": "Madde 1, 4, 7 ve 14-17",
+      "scope": "public"
+    },
+    {
+      "uri": "https://www.turmob.org.tr/arsiv/mbs/resmigazete/24252%281%29.htm",
+      "authority": "TÜRMOB / Resmî Gazete arşivi",
+      "title": "YMM Tasdik Raporlarında Karşıt İnceleme — 27 Sıra No.lu Genel Tebliğ",
+      "document_type": "general_communique",
+      "publication_date": "2000-12-06",
+      "effective_from": "2000-12-06",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["ymm", "karsit-inceleme", "vuk-256", "tasdik"],
+      "pinpoint_hint": "Karşıt inceleme, yazılı bilgi-belge talebi ve kapsam sınırı; güncel tebliğ zinciriyle yeniden doğrula",
+      "scope": "public"
+    }
+  ]
+}

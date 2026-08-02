@@ -1,4 +1,4 @@
-# Mali Müşavirim v0.0.1 — Mali Müşavir Kullanım Rehberi
+# Mali Müşavirim v0.0.2 — Mali Müşavir Kullanım Rehberi
 
 Bu rehber, sistemi yazılımcı gözüyle değil; defter, yevmiye, mizan, belge ve dönem sonu kontrolü yapan mali müşavirin iş akışıyla açıklar.
 
@@ -6,7 +6,7 @@ Bu rehber, sistemi yazılımcı gözüyle değil; defter, yevmiye, mizan, belge 
 
 1. [Sistem ne işe yarar?](#1-sistem-ne-işe-yarar)
 2. [Sistem neyin yerine geçmez?](#2-sistem-neyin-yerine-geçmez)
-3. [v0.0.1 sürümünde bulunan bileşenler](#3-v001-sürümünde-bulunan-bileşenler)
+3. [v0.0.2 sürümünde bulunan bileşenler](#3-v002-sürümünde-bulunan-bileşenler)
 4. [Dayanaklar ve kapsam](#4-dayanaklar-ve-kapsam)
 5. [Kurulum ve ilk kontrol](#5-kurulum-ve-ilk-kontrol)
 6. [Bir muhasebe işi nasıl yürütülür?](#6-bir-muhasebe-işi-nasıl-yürütülür)
@@ -59,7 +59,7 @@ Sistem aşağıdaki mesleki sorumlulukların yerine geçmez:
 
 `PASS` kararı, “beyanname doğrudur” anlamına gelmez. Yalnızca gönderilen verinin tanımlı mekanik kontrolleri geçtiğini gösterir.
 
-## 3. v0.0.1 sürümünde bulunan bileşenler
+## 3. v0.0.2 sürümünde bulunan bileşenler
 
 | Bileşen | Mali müşavir açısından görevi |
 |---|---|
@@ -70,6 +70,8 @@ Sistem aşağıdaki mesleki sorumlulukların yerine geçmez:
 | `ingest_sources.py` | Belge ve resmî kaynakları yerel korpusa alma |
 | `query_corpus.py` | Yerel korpusta metin arama |
 | `prepare_2026_tfrs_manifest.py` | İlgili 2026 TMS/TFRS tam metinlerini seçme |
+| `professional_role_engine.py` | Vergi incelemesi ve YMM tasdik yetki/kalite kapıları |
+| `professional_roles.v1.json` | 17 kaynağa bağlı 48 sürümlü rol kuralı |
 | `test_*.py` | Pozitif ve negatif otomatik testler |
 
 THP kataloğunda 271 tanımlı hesap kökü, 170-177 ve 350-357 proje hesabı aralıkları, hesap adları, normal bakiye yönleri ve kaynak bağları bulunur.
@@ -84,7 +86,7 @@ Sektör `general` dışında seçildiğinde motor `THP-SCOPE-001` bulgusu üreti
 
 ### VUK kayıt düzeni
 
-v0.0.1 sürümü aşağıdaki maddelerin açık ve mekanik olarak kontrol edilebilen kısmını kapsar:
+v0.0.2 sürümü aşağıdaki maddelerin açık ve mekanik olarak kontrol edilebilen kısmını kapsar:
 
 | VUK maddesi | Motorun kontrol ettiği konu |
 |---:|---|
@@ -121,7 +123,7 @@ python -c "import tomllib, pathlib; print(tomllib.loads(pathlib.Path('pyproject.
 Beklenen sonuç:
 
 ```text
-0.0.1
+0.0.2
 ```
 
 Katalog bütünlüğünü kontrol et:
@@ -416,7 +418,7 @@ Her sonuç dosyasının ana alanları:
 
 | Alan | Anlamı |
 |---|---|
-| `engine.version` | Çalışan yazılım sürümü; v0.0.1 için `0.0.1` |
+| `engine.version` | Çalışan yazılım sürümü; v0.0.2 için `0.0.2` |
 | `catalog.version` | Kullanılan mevzuat/hesap kataloğunun ayrı sürümü |
 | `catalog.sha256` | Katalog dosyasının parmak izi |
 | `input_sha256` | Girdinin kanonik parmak izi |
@@ -529,7 +531,7 @@ Excel veya muhasebe programı çıktısı doğrudan motor şemasına uymuyorsa v
 4. kaynak dosya SHA-256 özetini saklar,
 5. motor için JSON üretir.
 
-v0.0.1 her muhasebe programının özel Excel kolonlarını kendiliğinden tahmin etmez. İlk gerçek veri testinde kolon eşlemesi meslek mensubuyla doğrulanmalıdır.
+v0.0.2 her muhasebe programının özel Excel kolonlarını kendiliğinden tahmin etmez. İlk gerçek veri testinde kolon eşlemesi meslek mensubuyla doğrulanmalıdır.
 
 ## 14. Hesaplama motoru
 
@@ -539,7 +541,7 @@ Hazır hesapları listele:
 python .\skills\muhasebecim\scripts\muhasebecim_engine.py --list
 ```
 
-v0.0.1 kapsamındaki hesaplamalar:
+v0.0.2 kapsamındaki hesaplamalar:
 
 - yevmiye borç/alacak denkliği,
 - normal amortisman,
@@ -604,7 +606,7 @@ Motor çıktısında bir toplam elle değiştirilirse `receipt_sha256` artık tu
 
 ## 17. Sınırlar ve mesleki inceleme
 
-v0.0.1 için açık sınırlar:
+v0.0.2 için açık sınırlar:
 
 - Genel THP dışındaki sektörel planların hesap katalogları henüz motor içinde bulunmaz.
 - Kod/ad uygunluğu işlemin ekonomik özüne göre doğru hesap seçildiğini kanıtlamaz.
@@ -650,9 +652,9 @@ Mali müşavir aşağıdaki bilgileri hazırlar:
 
 İki sürüm birlikte gösterilir:
 
-- Yazılım sürümü: `0.0.1`
+- Yazılım sürümü: `0.0.2`
 - THP katalog sürümü: `2026.08.02-1`
 
 Bu ayrım bilinçlidir. Yazılımın kodu değişmeden mevzuat kataloğu güncellenebilir; veya mevzuat kataloğu aynı kalırken motor hatası düzeltilebilir. Her sonuç dosyası hem motor sürümünü hem katalog sürüm ve hash'ini taşır.
 
-`v0.0.1`, gerçek müşteri verisiyle kontrollü pilot test için ilk public sürümdür. Dış gönderim ve mesleki onaydan önce bütün bulgular ruhsatlı meslek mensubu tarafından incelenmelidir.
+`v0.0.2`, ilk public pilotun THP/VUK temelini vergi incelemesi hazırlığı ve YMM tasdik kalite kapılarıyla genişletir. Ayrıntılı uygulama için [Vergi Müfettişi ve YMM Uygulama Rehberi](VERGI-MUFETTISI-YMM-REHBERI.md) dosyasını okuyun. Dış gönderim ve mesleki onaydan önce bütün bulgular ruhsatlı veya yetkili meslek mensubu tarafından incelenmelidir.

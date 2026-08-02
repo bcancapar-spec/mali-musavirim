@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any, Callable
 
 
-ENGINE_VERSION = "0.0.1"
+ENGINE_VERSION = "0.0.2"
 getcontext().prec = 34
 getcontext().rounding = ROUND_HALF_UP
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Yeminli Mali Müşavir Tasdik Desteği"
+  short_description: "YMM tasdik, bağımsızlık ve kanıt kalite kapıları"
+  default_prompt: "Use $yeminli-mali-musavir to prepare this YMM certification workfile locally with current legal sources and deterministic Python gates."

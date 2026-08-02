@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERSION = "0.0.1"
+VERSION = "0.0.2"
 CASE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 REQUIRED_FACTS = {
     "as_of_date",
@@ -68,6 +68,8 @@ def init_case(case_dir: Path, case_id: str, as_of_date: str) -> dict[str, Any]:
         "requires_calculation": True,
         "requires_journal": False,
         "requires_thp_validation": False,
+        "requires_inspection_readiness": False,
+        "requires_ymm_certification": False,
         "requires_tax_reconciliation": False,
     }
     facts = {
@@ -201,6 +203,63 @@ def check_case(case_dir: Path) -> dict[str, Any]:
             "passed": thp_passed,
         },
     ))
+
+    professional_gate_specs = (
+        (
+            "inspection_readiness",
+            "requires_inspection_readiness",
+            "inspection-readiness-result.json",
+            "inspection-readiness-validate",
+            {"DRAFT_TAXPAYER_READINESS_ONLY", "DRAFT_FOR_AUTHORIZED_INSPECTOR"},
+        ),
+        (
+            "ymm_certification",
+            "requires_ymm_certification",
+            "ymm-certification-result.json",
+            "ymm-certification-validate",
+            {"DRAFT_READINESS_ONLY", "DRAFT_FOR_LICENSED_YMM"},
+        ),
+    )
+    for gate_name, requirement_field, file_name, operation_name, allowed_output_statuses in professional_gate_specs:
+        required = bool(case.get(requirement_field, False))
+        result_path = case_dir / "outputs" / file_name
+        passed = False
+        decision = None
+        receipt_valid = False
+        output_status = None
+        if result_path.is_file():
+            professional_result = read_json(result_path)
+            if isinstance(professional_result, dict):
+                decision = professional_result.get("decision")
+                receipt_valid = _valid_receipt(professional_result)
+                professional_engine = professional_result.get("engine", {})
+                result_body = professional_result.get("result", {})
+                if isinstance(result_body, dict):
+                    output_status = result_body.get("output_status")
+                passed = (
+                    isinstance(professional_engine, dict)
+                    and professional_engine.get("name") == "muhasebecim-professional-roles"
+                    and professional_result.get("operation") == operation_name
+                    and decision in {"PASS", "PASS_WITH_WARNINGS"}
+                    and receipt_valid
+                    and isinstance(result_body, dict)
+                    and result_body.get("professional_act_permitted") is False
+                    and output_status in allowed_output_statuses
+                )
+        gates.append(gate(
+            gate_name,
+            (not required) or passed,
+            {
+                "required": required,
+                "path": str(result_path),
+                "operation": operation_name,
+                "decision": decision,
+                "output_status": output_status,
+                "allowed_output_statuses": sorted(allowed_output_statuses),
+                "receipt_valid": receipt_valid,
+                "passed": passed,
+            },
+        ))
 
     reconciliation_required = bool(case.get("requires_tax_reconciliation", False))
     reconciliation_path = case_dir / "outputs" / "tax-reconciliation-result.json"
