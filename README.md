@@ -2,6 +2,16 @@
 
 Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî kaynak sürümleyen ve bütün sayısal işlemleri denetlenebilir Python koduyla yapan Codex yeteneği.
 
+**İlk public pilot sürüm:** `v0.0.1`
+
+Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
+
+## Mali müşavir için kısa açıklama
+
+Bu sistem bir muhasebe programı veya beyanname gönderim aracı değildir. Mizan, yevmiye, hesap listesi ve hesaplama girdilerini yerelde kontrol eden ikinci göz niteliğindedir. Katalogda olmayan hesap, hesap adı uyuşmazlığı, 7/A-7/B karışması, dengesiz fiş, mizan devir hatası, VUK kayıt süresi ve tevsik eksikliği gibi tanımlı durumları kural kimliğiyle raporlar.
+
+Sonuçtaki `PASS`, yalnız tanımlı mekanik kontrollerin geçtiğini gösterir. Belgenin gerçekliği, hesabın ekonomik öz bakımından nihai doğruluğu, beyanname uygunluğu ve mesleki imza sorumluluğu ruhsatlı meslek mensubunda kalır.
+
 ## Teslim edilen sistem
 
 - SMMM çalışma modeli: iş kabulü ve sözleşmeden belge akışı, kayıt, aylık kapanış, beyan, dönem sonu, raporlama ve devre kadar kontrol kapıları.
@@ -116,6 +126,7 @@ Gerçek vaka kapısında `case.json` içindeki `requires_thp_validation` alanın
 
 ```text
 muhasebecim/
+├── docs/                            # Mali müşavir kullanım rehberi
 ├── corpus/official/                 # Yerel, hash denetimli başlangıç korpusu
 ├── manifests/official-sources.json  # Resmî kaynak manifesti
 └── skills/muhasebecim/

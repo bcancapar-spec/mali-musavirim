@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERSION = "0.2.0"
+VERSION = "0.0.1"
 CASE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 REQUIRED_FACTS = {
     "as_of_date",

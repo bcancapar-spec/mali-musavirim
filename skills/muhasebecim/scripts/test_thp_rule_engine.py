@@ -6,10 +6,13 @@ import json
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 from pathlib import Path
 
 import case_workflow
+import ingest_sources
+import muhasebecim_engine
 import thp_rule_engine as thp
 
 
@@ -325,6 +328,17 @@ class WorkflowIntegrationTests(unittest.TestCase):
             tampered_gate = next(item for item in case_workflow.check_case(case_dir)["gates"] if item["name"] == "thp_vuk_validation")
             self.assertFalse(tampered_gate["passed"])
             self.assertFalse(tampered_gate["details"]["receipt_valid"])
+
+
+class ReleaseVersionTests(unittest.TestCase):
+    def test_all_component_versions_match_release(self) -> None:
+        project_root = Path(thp.__file__).resolve().parents[3]
+        project = tomllib.loads((project_root / "pyproject.toml").read_text(encoding="utf-8"))
+        self.assertEqual(project["project"]["version"], "0.0.1")
+        self.assertEqual(thp.ENGINE_VERSION, "0.0.1")
+        self.assertEqual(muhasebecim_engine.ENGINE_VERSION, "0.0.1")
+        self.assertEqual(case_workflow.VERSION, "0.0.1")
+        self.assertEqual(ingest_sources.VERSION, "0.0.1")
 
 
 if __name__ == "__main__":

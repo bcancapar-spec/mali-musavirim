@@ -27,7 +27,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERSION = "0.2.0"
+VERSION = "0.0.1"
 STATUSES = {"in_force", "future", "draft", "repealed", "administrative_view", "unknown"}
 SCOPES = {"public", "case"}
 TEXT_TYPES = {".txt", ".md", ".csv", ".tsv", ".json", ".xml", ".xhtml"}
