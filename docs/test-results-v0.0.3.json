@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "release_version": "0.0.3",
+  "run_date": "2026-08-02",
+  "method": "python_unittest_discovery",
+  "runtime": {
+    "implementation": "CPython",
+    "python": "3.14.6"
+  },
+  "discovery": {
+    "start_dir": "skills/muhasebecim/scripts",
+    "pattern": "test_*.py"
+  },
+  "by_file": [
+    {
+      "file": "test_muhasebecim.py",
+      "test_count": 18
+    },
+    {
+      "file": "test_professional_role_engine.py",
+      "test_count": 12
+    },
+    {
+      "file": "test_taxpayer_interest_engine.py",
+      "test_count": 13
+    },
+    {
+      "file": "test_thp_rule_engine.py",
+      "test_count": 29
+    }
+  ],
+  "result": {
+    "discovered_test_count": 72,
+    "tests_run": 72,
+    "passed": 72,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "successful": true
+  },
+  "catalog_audits": {
+    "muhasebecim-thp-vuk": "PASS",
+    "muhasebecim-professional-roles": "PASS",
+    "muhasebecim-taxpayer-interest": "PASS"
+  }
+}

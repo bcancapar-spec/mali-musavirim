@@ -8,6 +8,8 @@ Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî 
 
 Sürüm bazında eklenen özellikler için [Sürüm Notları](CHANGELOG.md) dosyasına bakın.
 
+**Doğrulanmış test durumu:** `72/72 PASS` — başarısız `0`, hata `0`, atlanan `0`. Test kapsamı, pozitif/negatif yöntemler ve güvence sınırları için [Test Yöntemi ve Doğrulama Sonuçları](docs/TEST-YONTEMI-VE-SONUCLARI.md); makinece okunabilir kayıt için [v0.0.3 test sonucu](docs/test-results-v0.0.3.json) dosyasına bakın.
+
 Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
 
 Yazılımı hiç çalıştırmadan bütün sistemi kurgusal bir muhasebe vakası üzerinden kavramak için [Mali Müşavirim'i Yazılımı Çalıştırmadan Anlama Rehberi](docs/SISTEMI-KULLANMADAN-ANLAMA-REHBERI.md) dosyasını okuyun. Bu rehber; belge kabulünden THP/VUK kontrolüne, Python hesap izinden mükellef lehine adıma, aleyhe iç bildirimden vergi müfettişi/YMM bakışına kadar tüm zinciri mali müşavir diliyle örnekler.
@@ -80,6 +82,14 @@ Testleri çalıştır:
 ```powershell
 python -m unittest discover -s .\skills\muhasebecim\scripts -p "test_*.py" -v
 ```
+
+Test sayısını ve sonucu makinece okunabilir JSON olarak yeniden üret:
+
+```powershell
+python .\skills\muhasebecim\scripts\test_suite_report.py
+```
+
+Test yöntemi; pozitif geçiş, negatif/fail-closed blok, kapalı şema, deterministik tekrar, katalog kurcalama, sonuç makbuzu, fiziksel dosya/SHA-256, CLI çıkış kodları ve uçtan uca vaka kapanışı kontrollerini birlikte kullanır.
 
 Resmî korpusu yenile ve denetle:
 

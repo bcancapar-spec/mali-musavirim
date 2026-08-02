@@ -12,6 +12,7 @@
 - Vergi müfettişi modunda lehe/aleyhe kanıtın birlikte değerlendirilmesi; YMM modunda bağımsızlık ve doğru raporlamanın korunması açıkça kilitlendi.
 - Mali müşavir için ayrıntılı politika, kullanım ve yazılımı çalıştırmadan kurgusal vaka üzerinden öğrenme rehberleri eklendi.
 - Otomatik test paketi 72 teste çıkarıldı.
+- Test sayısı, dosya bazlı dağılımı, pozitif/negatif yöntemleri, kurcalama/hash ve entegrasyon kontrolleri ayrı metodoloji belgesi ile makinece okunabilir test sonuç kaydında yayımlandı.
 
 ## v0.0.2 — Vergi müfettişi ve YMM uzmanlıkları
 

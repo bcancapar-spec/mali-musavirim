@@ -75,7 +75,10 @@ Sistem aşağıdaki mesleki sorumlulukların yerine geçmez:
 | `professional_roles.v1.json` | 17 kaynağa bağlı 48 sürümlü rol kuralı |
 | `taxpayer_interest_engine.py` | Lehe adım ve aleyhe iç bildirim için kapatılamayan vaka kapısı |
 | `taxpayer_interest_rules.v1.json` | 5 kaynak kaydına bağlı 16 sürümlü mükellef menfaati kuralı |
-| `test_*.py` | Pozitif ve negatif otomatik testler |
+| `test_*.py` | 72 pozitif, negatif, kurcalama ve entegrasyon testi |
+| `test_suite_report.py` | Test sayısı ve geçiş sonucunu yeniden üreten JSON rapor aracı |
+
+Testlerin dosya bazlı sayısı, yöntemi ve güvence sınırları [Test Yöntemi ve Doğrulama Sonuçları](TEST-YONTEMI-VE-SONUCLARI.md) belgesinde açıklanır.
 
 THP kataloğunda 271 tanımlı hesap kökü, 170-177 ve 350-357 proje hesabı aralıkları, hesap adları, normal bakiye yönleri ve kaynak bağları bulunur.
 

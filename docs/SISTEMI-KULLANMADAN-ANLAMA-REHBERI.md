@@ -404,5 +404,6 @@ Sistem:
 2. [Mükellef Menfaati ve İç Bildirim Rehberi](MUKELLEF-MENFAATI-VE-IC-BILDIRIM.md): lehe adım, aleyhe iç kayıt ve fiziksel hash kapısı.
 3. [Vergi Müfettişi ve YMM Uygulama Rehberi](VERGI-MUFETTISI-YMM-REHBERI.md): rol, yetki, bağımsızlık ve tasdik kapıları.
 4. Repo ana [README](../README.md): kurulum, komutlar, dosya yolları ve kaynak yenileme.
+5. [Test Yöntemi ve Doğrulama Sonuçları](TEST-YONTEMI-VE-SONUCLARI.md): 72 testin kapsamı, yöntemi ve kapsamadığı güvence alanları.
 
 Bu okuma sırası tamamlandığında bir mali müşavir sistemin hangi kararı verdiğinden önce **neden o kapıyı çalıştırdığını, hangi kanıtı beklediğini ve hangi mesleki sorumluluğu insanda bıraktığını** anlayabilir.
