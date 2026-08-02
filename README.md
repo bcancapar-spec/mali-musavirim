@@ -8,7 +8,7 @@ Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî 
 
 Sürüm bazında eklenen özellikler için [Sürüm Notları](CHANGELOG.md) dosyasına bakın.
 
-**Doğrulanmış test durumu:** `72/72 PASS` — başarısız `0`, hata `0`, atlanan `0`. Test kapsamı, pozitif/negatif yöntemler ve güvence sınırları için [Test Yöntemi ve Doğrulama Sonuçları](docs/TEST-YONTEMI-VE-SONUCLARI.md); makinece okunabilir kayıt için [v0.0.3 test sonucu](docs/test-results-v0.0.3.json) dosyasına bakın.
+**Doğrulanmış test durumu:** `76/76 PASS` — başarısız `0`, hata `0`, atlanan `0`. Test kapsamı, pozitif/negatif yöntemler ve güvence sınırları için [Test Yöntemi ve Doğrulama Sonuçları](docs/TEST-YONTEMI-VE-SONUCLARI.md); makinece okunabilir kayıt için [v0.0.3 test sonucu](docs/test-results-v0.0.3.json) dosyasına bakın.
 
 ## Ne istedik, neyi hedefledik, neyi başardık, şimdi ne yapıyoruz?
 
@@ -16,13 +16,15 @@ Bu proje; Türk muhasebe ve vergi uygulamalarını yerelde inceleyen, bütün sa
 
 Hedefimiz tek seferlik cevap üreten bir sohbet değil; belge kabulünden resmî kaynağa, Python hesabından THP/VUK kontrolüne, mükellef lehine adımdan aleyhe yerel iç bildirime ve fiziksel SHA-256 kanıtına kadar uçtan uca çalışan bir dosya metodolojisidir.
 
-Bugün itibarıyla yerel ingest, 14 hesap işlemi, 271 hesaplı genel THP kataloğu, 48 profesyonel rol kuralı, 16 mükellef menfaati kuralı, üç uzmanlık becerisi, zorunlu vaka kapıları, meslek rehberleri ve 72 başarılı test tamamlandı.
+Bugün itibarıyla yerel ingest, 14 hesap işlemi, 271 hesaplı genel THP kataloğu, 48 profesyonel rol kuralı, 16 mükellef menfaati kuralı, üç uzmanlık becerisi, zorunlu vaka kapıları, meslek rehberleri ve 76 başarılı test tamamlandı.
 
 Henüz gerçek müşteri verisi pilotu, bütün vergi mevzuatının kurallaştırılması, tüm TMS/TFRS paragrafları, sektörel hesap planları, canlı GİB/e-Defter entegrasyonu ve bağımsız güvenlik/performans denetimi tamamlanmadı. Şimdiki hedef, kullanıcının sağlayacağı gerçek muhasebe kayıtlarını yerelde çalıştırmak ve sistemin gerçek veri üzerindeki yanlış pozitiflerini, veri eşlemelerini ve eksik kurallarını ölçmektir.
 
 İsteklerin kronolojisi, hedef mimari, tamamlanan işler, açık eksikler, güncel çalışma ve yol haritası için [Proje Amacı, Kapsamı ve Güncel Durumu](docs/PROJE-AMACI-KAPSAMI-VE-DURUMU.md) belgesini okuyun.
 
 Mali müşavir açısından sistemin ne yaptığını, hangi verinin nasıl hazırlanacağını, THP/VUK bulgularının nasıl okunacağını ve gerçek veri testinin nasıl yürütüleceğini öğrenmek için [Mali Müşavir Kullanım Rehberi](docs/MALI-MUSAVIR-KULLANIM-REHBERI.md) ile başlayın.
+
+Claude Code ile kurulum, `/muhasebecim`, `/vergi-mufettisi` ve `/yeminli-mali-musavir` komutları, örnek istemler, Python motorları, izinler ve hassas veri sınırı için [Claude Code Kullanım Rehberi](docs/CLAUDE-CODE-KULLANIM-REHBERI.md) dosyasını okuyun. Depo kökündeki `CLAUDE.md` ve `.claude/skills/` yönlendiricileri Claude Code tarafından doğrudan keşfedilir.
 
 Yazılımı hiç çalıştırmadan bütün sistemi kurgusal bir muhasebe vakası üzerinden kavramak için [Mali Müşavirim'i Yazılımı Çalıştırmadan Anlama Rehberi](docs/SISTEMI-KULLANMADAN-ANLAMA-REHBERI.md) dosyasını okuyun. Bu rehber; belge kabulünden THP/VUK kontrolüne, Python hesap izinden mükellef lehine adıma, aleyhe iç bildirimden vergi müfettişi/YMM bakışına kadar tüm zinciri mali müşavir diliyle örnekler.
 
@@ -66,6 +68,32 @@ Rol motoru kamu yetkisi, ruhsat, imza veya mühür üretmez. Her sonuçta `profe
 
 Üç yetenek tek [mükellef menfaati politikasına](skills/muhasebecim/references/taxpayer-interest-policy.md) tabidir: dış taslakta mükellefi gereksiz zayıflatan ikrar/ifade üretilmez; aleyhe olgu ise yerel iç analizde asla saklanmaz. Bu ayrım doğru kayıt, zorunlu beyan, YMM bağımsızlığı veya vergi müfettişi tarafsızlığını kaldırmaz.
 
+## Claude Code desteği
+
+Depo, Codex eklentisine ek olarak Claude Code proje yapısını da içerir:
+
+- `CLAUDE.md`: Python hesaplama, deterministik kapı, mükellef menfaati, hassas veri ve test kurallarını her oturuma taşır.
+- `.claude/skills/muhasebecim/SKILL.md`: `/muhasebecim` komutunu kanonik muhasebe yeteneğine bağlar.
+- `.claude/skills/vergi-mufettisi/SKILL.md`: `/vergi-mufettisi` komutunu inceleme hazırlığı yeteneğine bağlar.
+- `.claude/skills/yeminli-mali-musavir/SKILL.md`: `/yeminli-mali-musavir` komutunu YMM tasdik hazırlığı yeteneğine bağlar.
+
+Kısa başlangıç:
+
+```powershell
+git clone https://github.com/bcancapar-spec/mali-musavirim.git
+Set-Location .\mali-musavirim
+claude --permission-mode plan
+```
+
+Ardından Claude Code içinde:
+
+```text
+/muhasebecim
+Projeyi değişiklik yapmadan incele; testleri, motorları ve mesleki sınırları açıkla.
+```
+
+**Hassas veri uyarısı:** Python motorlarının yerelde çalışması, Claude Code model bağlamının tamamen yerel olduğu anlamına gelmez. Claude Code model iletişimi için ağ kullanır; okunan dosya veya sohbete eklenen içerik model bağlamına girebilir. Onaylı kurumsal veri işleme düzeni yoksa Claude Code ile yalnızca kaynak kod, public mevzuat, sentetik veya geri döndürülemez biçimde maskelenmiş muhasebe verisi kullanın. Gerçek mükellef kaydı için rehberdeki veri yönetişimi kapısını uygulayın.
+
 ## Deterministik THP/VUK motoru
 
 Motorun tasarımında [bcancapar-spec/ortak-avukat](https://github.com/bcancapar-spec/ortak-avukat) projesindeki deterministik kapı, açık kural kimliği, makinece okunabilir kanıt ve fail-closed çıktı yaklaşımından ilham alındı. Uygulama muhasebe alanı için sıfırdan yazıldı; diğer deponun kaynak kodu kopyalanmadı.
@@ -81,9 +109,11 @@ Aynı girdi ve aynı katalog kanonik olarak aynı JSON sonucu verir. Sonuçta gi
 
 Katalog genel MSUGT planıyla sınırlıdır. Banka, sigorta, katılım finans, finansal kiralama, faktoring ve sermaye piyasası işletmelerinde genel plan otomatik uygulanmaz. Kod uygunluğu işlemin ekonomik sınıflandırmasının, belgenin gerçekliğinin veya beyannamenin doğruluğunun kanıtı değildir.
 
-## Yerel veri garantisi
+## Yerel Python işleme garantisi ve model sınırı
 
 Kodlama dili Python 3.11+'dır. Müşteri belgesi, mizan, bordro, banka hareketi ve diğer vaka verileri uzak OCR, embedding, LLM veya analiz hizmetine gönderilmez. Ağ yalnızca manifestteki açık resmî kaynakları indirmek için kullanılır; çıkarım, indeksleme, arama ve hesaplama yerelde yapılır.
+
+Bu garanti deponun Python ingest ve hesaplama motorlarına aittir. Claude Code, Codex veya başka bir ağ tabanlı model istemcisine bir dosya okutmak ayrı bir veri işleme faaliyetidir. Ham müşteri verisini böyle bir aracın bağlamına eklemeden önce ilgili aracın veri akışını, hesap türünü, saklama politikasını ve kurum/müşteri yetkisini ayrıca değerlendirin.
 
 `cases/`, `corpus/` ve yaygın muhasebe veri dosyaları `.gitignore` ile GitHub dışında tutulur. Gerçek müşteri kayıtlarını hiçbir zaman kaynak kod deposuna eklemeyin.
 

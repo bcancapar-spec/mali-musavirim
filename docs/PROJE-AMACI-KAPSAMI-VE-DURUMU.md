@@ -25,7 +25,7 @@ Tek bir soruya cevap veren bir sohbet metni değil, aşağıdaki zinciri uçtan 
 
 ### Neyi başardık?
 
-v0.0.3 itibarıyla yerel ingest, 14 işlemli Python hesaplama motoru, sürümlü THP/VUK motoru, vergi müfettişi ve YMM rol motoru, mükellef menfaati/iç bildirim motoru, vaka kapanış kapıları, üç Codex becerisi, ayrıntılı meslek rehberleri ve 72 testten oluşan public bir sistem tamamlandı.
+v0.0.3 itibarıyla yerel ingest, 14 işlemli Python hesaplama motoru, sürümlü THP/VUK motoru, vergi müfettişi ve YMM rol motoru, mükellef menfaati/iç bildirim motoru, vaka kapanış kapıları, üç Codex becerisi, aynı becerilere bağlı üç Claude Code proje yeteneği, ayrıntılı meslek rehberleri ve 76 testten oluşan public bir sistem tamamlandı.
 
 ### Şu anda ne yapıyoruz?
 
@@ -218,6 +218,7 @@ Bu bölümdeki sayılar 2 Ağustos 2026 tarihinde Python ile katalog ve test dos
 |---|---:|
 | Public sürüm | `v0.0.3` |
 | Codex uzmanlık becerisi | 3 |
+| Claude Code proje yeteneği | 3 |
 | Python hesaplama işlemi | 14 |
 | Tanımlı genel THP hesabı | 271 |
 | THP proje hesabı aralığı | 2 |
@@ -228,8 +229,8 @@ Bu bölümdeki sayılar 2 Ağustos 2026 tarihinde Python ile katalog ve test dos
 | Profesyonel rol kaynağı | 17 |
 | Mükellef menfaati/iç bildirim kuralı | 16 |
 | Mükellef menfaati kaynak kaydı | 5 |
-| Otomatik test | 72 |
-| Başarılı test | 72 |
+| Otomatik test | 76 |
+| Başarılı test | 76 |
 
 ### 5.1 Yerel ingest sistemi
 
@@ -348,7 +349,7 @@ Modelin “hazırladım” demesi yeterli değildir. Lehe adım ve iç bildirim:
 
 ### 5.8 Test ve dokümantasyon
 
-72 testin tamamı geçmektedir. Test yöntemi:
+76 testin tamamı geçmektedir. Test yöntemi:
 
 - pozitif geçiş,
 - negatif/fail-closed,
@@ -359,7 +360,8 @@ Modelin “hazırladım” demesi yeterli değildir. Lehe adım ve iç bildirim:
 - fiziksel dosya/hash,
 - CLI çıkış kodları,
 - vaka entegrasyonu,
-- yerel ingest
+- yerel ingest,
+- Claude Code proje talimatı, yetenek yönlendirmesi ve veri sınırı
 
 kontrollerini kapsar.
 
@@ -369,10 +371,24 @@ Mali müşavirler için ayrıca:
 - yazılımı çalıştırmadan örnek vaka rehberi,
 - vergi müfettişi/YMM rehberi,
 - mükellef menfaati rehberi,
+- Claude Code kurulum, yetenek, izin ve hassas veri rehberi,
 - test yöntem ve sonuç belgesi,
 - makinece okunabilir test kaydı
 
 yayımlandı.
+
+### 5.9 Claude Code uyumluluğu
+
+Claude Code kullanıcıları için:
+
+- depo köküne, her oturumda Python hesaplama ve mesleki sınırları taşıyan `CLAUDE.md` eklendi,
+- `.claude/skills/` altında `/muhasebecim`, `/vergi-mufettisi` ve `/yeminli-mali-musavir` komutları oluşturuldu,
+- Claude Code yetenekleri mevcut kanonik `skills/` talimatlarına bağlandı; paralel ve zamanla ayrışabilecek ikinci bir muhasebe kural seti kurulmadı,
+- kurulum, test, sentetik vaka, THP/VUK, inceleme hazırlığı, YMM, izin ve sorun giderme adımları ayrı rehberde açıklandı,
+- Python motorlarının yerelde çalışması ile Claude Code'un ağ tabanlı model bağlamı birbirinden ayrıldı,
+- onaylı kurumsal veri işleme düzeni bulunmadığında gerçek mükellef verisinin Claude Code'a okutulmaması; sentetik veya geri döndürülemez maskeli veri kullanılması kuralı kondu.
+
+Bu entegrasyon Claude Code'u yerel bir modele dönüştürmez ve veri gizliliği kararını kullanıcı yerine vermez. Ham muhasebe verisine erişim, ilgili hesap/model sağlayıcısı, saklama politikası, sözleşme, kurumsal izin ve meslek sırrı yükümlülüğü birlikte değerlendirilerek ayrıca yetkilendirilmelidir.
 
 ## 6. Sürüm yolculuğu
 
@@ -400,7 +416,7 @@ yayımlandı.
 - fiziksel dosya ve SHA-256 bağı,
 - kapatılamayan vaka kapısı,
 - 16 deterministik kural,
-- 72 test ve ayrıntılı test yöntemi,
+- 76 test ve ayrıntılı test yöntemi,
 - mali müşavir için genişletilmiş eğitim belgeleri.
 
 ## 7. Ne başaramadık veya henüz tamamlamadık?
@@ -470,8 +486,9 @@ Sistem hiçbir sürümde:
 1. v0.0.3 kodu ve belgeleri public GitHub deposunda yayımlandı.
 2. Test sayısı ve yöntemleri repoda görünür hâle getirildi.
 3. Yerel çalışma, THP/VUK, profesyonel roller ve mükellef menfaati kapıları tamamlandı.
-4. Gerçek muhasebe verisi pilotu için sistem hazır.
-5. Kullanıcının paylaşacağı kayıt ve dosya biçimi bekleniyor.
+4. Claude Code için proje talimatı, üç slash yeteneği ve ayrıntılı kullanım/veri güvenliği rehberi public depoya eklendi.
+5. Gerçek muhasebe verisi pilotu için deterministik Python sistemi hazır.
+6. Kullanıcının paylaşacağı kayıt ve dosya biçimi ile ham verinin hangi onaylı ortamda işleneceğine ilişkin veri yönetişimi kararı bekleniyor.
 
 Aktif hedef yeni bir mevzuat iddiası eklemek değil; önce gerçek veri üzerinde mevcut sistemin davranışını ölçmek ve doğrulamaktır.
 

@@ -10,9 +10,9 @@ Bu belge, Mali Müşavirim test sayısının neyi ifade ettiğini, hangi yöntem
 | Test tarihi | 2 Ağustos 2026 |
 | Python ortamı | CPython `3.14.6` |
 | Test çatısı | Python standart kütüphanesi `unittest` |
-| Keşfedilen test | **72** |
-| Çalıştırılan test | **72** |
-| Başarılı test | **72** |
+| Keşfedilen test | **76** |
+| Çalıştırılan test | **76** |
+| Başarılı test | **76** |
 | Başarısız test | **0** |
 | Hata | **0** |
 | Atlanan test | **0** |
@@ -24,11 +24,12 @@ Bu sayı yalnız test fonksiyonlarının adedi değildir. Testlerin içinde pozi
 
 | Test dosyası | Test sayısı | Ana kapsam |
 |---|---:|---|
+| `test_claude_code_integration.py` | 4 | Kök talimatı, üç proje yeteneği, resmî kaynak bağları ve ağ tabanlı model veri sınırı |
 | `test_muhasebecim.py` | 18 | Hesaplama motoru, yerel ingest, vaka akışı ve standart manifesti |
 | `test_professional_role_engine.py` | 12 | Vergi müfettişi ve YMM rol/yetki/bağımsızlık kapıları |
 | `test_taxpayer_interest_engine.py` | 13 | Mükellef lehine adım, aleyhe iç bildirim ve fiziksel kanıt kapısı |
 | `test_thp_rule_engine.py` | 29 | THP kataloğu, VUK yevmiye kontrolleri, mizan ve sürüm bütünlüğü |
-| **Toplam** | **72** | Bütün yerel motorlar ve entegrasyon kapıları |
+| **Toplam** | **76** | Yerel motorlar, entegrasyon kapıları ve Claude Code uyumluluk katmanı |
 
 Test sayıları `unittest` keşif ağacından Python ile sayılmıştır; elle toplanmamıştır.
 
@@ -192,9 +193,20 @@ Testler müşteri verisinin yerel çalışma sınırını da kapsar:
 
 Testlerde gerçek müşteri verisi kullanılmaz.
 
+### 11. Claude Code uyumluluk testleri
+
+Dört depo seviyesi test:
+
+- kök `CLAUDE.md` dosyasının varlığını, 200 satırı aşmamasını ve zorunlu Python/`Decimal`/`BLOCK`/hassas veri kurallarını,
+- `.claude/skills/` altında tam olarak üç proje yeteneği bulunmasını ve her birinin mevcut kanonik yeteneğe bağlanmasını,
+- Claude Code rehberinin README'den erişilebilmesini ve resmî kurulum, bellek, Skills, izin ve veri kullanımı kaynaklarına bağlanmasını,
+- yerel Python işleme ile ağ tabanlı model bağlamı arasındaki veri sınırının README ve rehberde açıkça yazılmasını
+
+doğrular. Bu testler Claude Code servisinin kendisini veya kullanıcı hesabını test etmez; deponun Claude Code tarafından keşfedilecek dosya sözleşmesini denetler.
+
 ## Testlerin kapsamadığı konular
 
-72 test aşağıdakilere ilişkin garanti değildir:
+76 test aşağıdakilere ilişkin garanti değildir:
 
 - Gerçek faturanın veya belgenin sahihliği,
 - ekonomik özün nihai mesleki yorumu,
@@ -211,4 +223,4 @@ Gerçek kayıt testinde kolon eşlemesi, işlem tarihi, uygulanan raporlama çer
 
 ## Test sonucu ne anlama gelir?
 
-`72/72 PASS`, kodlanmış kontrollerin tanımlı örnek ve karşı örneklerde beklenen şekilde davrandığını gösterir. Bu sonuç “her muhasebe kaydı doğrudur” demek değildir. Sistem, meslek mensubunun yerini almak yerine onun önündeki mekanik hata, kanıt ve süreç risklerini görünür ve yeniden üretilebilir hâle getirir.
+`76/76 PASS`, kodlanmış kontrollerin tanımlı örnek ve karşı örneklerde beklenen şekilde davrandığını gösterir. Bu sonuç “her muhasebe kaydı doğrudur” demek değildir. Sistem, meslek mensubunun yerini almak yerine onun önündeki mekanik hata, kanıt ve süreç risklerini görünür ve yeniden üretilebilir hâle getirir.

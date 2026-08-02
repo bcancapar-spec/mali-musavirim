@@ -13,6 +13,10 @@
   },
   "by_file": [
     {
+      "file": "test_claude_code_integration.py",
+      "test_count": 4
+    },
+    {
       "file": "test_muhasebecim.py",
       "test_count": 18
     },
@@ -30,9 +34,9 @@
     }
   ],
   "result": {
-    "discovered_test_count": 72,
-    "tests_run": 72,
-    "passed": 72,
+    "discovered_test_count": 76,
+    "tests_run": 76,
+    "passed": 76,
     "failures": 0,
     "errors": 0,
     "skipped": 0,

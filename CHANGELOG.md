@@ -11,9 +11,11 @@
 - `$muhasebecim`, `$vergi-mufettisi` ve `$yeminli-mali-musavir` tek merkezî politika dosyasına bağlandı.
 - Vergi müfettişi modunda lehe/aleyhe kanıtın birlikte değerlendirilmesi; YMM modunda bağımsızlık ve doğru raporlamanın korunması açıkça kilitlendi.
 - Mali müşavir için ayrıntılı politika, kullanım ve yazılımı çalıştırmadan kurgusal vaka üzerinden öğrenme rehberleri eklendi.
-- Otomatik test paketi 72 teste çıkarıldı.
+- Otomatik test paketi Claude Code uyumluluk kontrolleriyle 76 teste çıkarıldı.
 - Test sayısı, dosya bazlı dağılımı, pozitif/negatif yöntemleri, kurcalama/hash ve entegrasyon kontrolleri ayrı metodoloji belgesi ile makinece okunabilir test sonuç kaydında yayımlandı.
 - Projenin başlangıç talepleri, hedef mimarisi, tamamlanan çıktıları, açık eksikleri, güncel çalışma durumu ve gerçek veri yol haritası ayrıntılı durum belgesinde yayımlandı.
+- Claude Code için kök `CLAUDE.md`, üç proje yeteneği yönlendiricisi ve kurulumdan gerçek veri yönetişimine uzanan ayrıntılı kullanım rehberi eklendi.
+- Yerel Python işleme garantisi ile ağ tabanlı model bağlamı arasındaki fark README ve Claude Code rehberinde açıkça belgelendi.
 
 ## v0.0.2 — Vergi müfettişi ve YMM uzmanlıkları
 

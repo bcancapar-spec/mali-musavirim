@@ -75,7 +75,7 @@ Sistem aşağıdaki mesleki sorumlulukların yerine geçmez:
 | `professional_roles.v1.json` | 17 kaynağa bağlı 48 sürümlü rol kuralı |
 | `taxpayer_interest_engine.py` | Lehe adım ve aleyhe iç bildirim için kapatılamayan vaka kapısı |
 | `taxpayer_interest_rules.v1.json` | 5 kaynak kaydına bağlı 16 sürümlü mükellef menfaati kuralı |
-| `test_*.py` | 72 pozitif, negatif, kurcalama ve entegrasyon testi |
+| `test_*.py` | 76 pozitif, negatif, kurcalama, entegrasyon ve Claude Code uyumluluk testi |
 | `test_suite_report.py` | Test sayısı ve geçiş sonucunu yeniden üreten JSON rapor aracı |
 
 Testlerin dosya bazlı sayısı, yöntemi ve güvence sınırları [Test Yöntemi ve Doğrulama Sonuçları](TEST-YONTEMI-VE-SONUCLARI.md) belgesinde açıklanır.
