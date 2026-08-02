@@ -2,6 +2,10 @@
 
 Bu dosya kanun metni yerine geçmez. Madde numaralarını arama başlangıcı olarak kullan; işlem tarihindeki konsolide maddeyi, geçici maddeleri, genel tebliğleri ve yürürlük hükümlerini açarak doğrula.
 
+## Otomatik kayıt kontrolü
+
+`scripts/thp_rule_engine.py journal-validate`, VUK 215, 217, 218, 219 ve 227'nin makinece sınanabilen kayıt alt kümesini deterministik olarak uygular. Türkçe ve para birimi, muhasebe usulüyle düzeltme, satır devamlılığı, 10/45 günlük kayıt süreleri ve üçüncü kişi belgesi için kural kimlikli sonuç üretir. Bu kontrol belgenin gerçekliğini, maddi olayın doğruluğunu veya değişken izin şartlarının sağlandığını kendiliğinden kanıtlamaz; kanıt ve meslek mensubu incelemesi gerekir. Ayrıntılı veri sözleşmesi için [thp-control.md](thp-control.md) dosyasını kullan.
+
 ## Konu haritası
 
 | Konu | Başlangıç maddeleri |

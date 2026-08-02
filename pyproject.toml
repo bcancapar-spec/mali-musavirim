@@ -1,7 +1,7 @@
 [project]
 name = "muhasebecim"
-version = "0.1.0"
-description = "Local-first Turkish accounting reasoning and deterministic Python calculations"
+version = "0.2.0"
+description = "Local-first Turkish accounting reasoning, deterministic THP/VUK rules, and Python calculations"
 requires-python = ">=3.11"
 license = "MIT"
 authors = [{ name = "Bayram Can Çapar" }]

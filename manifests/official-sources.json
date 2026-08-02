@@ -107,6 +107,19 @@
       "scope": "public"
     },
     {
+      "uri": "https://gib.gov.tr/mevzuat/kanun/434/teblig/7864",
+      "authority": "Gelir İdaresi Başkanlığı",
+      "title": "1 Sıra No.lu Muhasebe Sistemi Uygulama Genel Tebliği — resmî mevzuat kaydı",
+      "document_type": "general_communique",
+      "publication_date": "1992-12-26",
+      "effective_from": "1994-01-01",
+      "effective_to": null,
+      "status": "in_force",
+      "tags": ["msugt", "tekduzen-hesap-plani", "thp", "vuk-175", "mukerrer-257"],
+      "pinpoint_hint": "Kapsam, özel hesap planı istisnaları, hesap çerçevesi ve hesap planı",
+      "scope": "public"
+    },
+    {
       "uri": "https://www.mevzuat.gov.tr/mevzuatmetin/1.5.3568.pdf",
       "authority": "Cumhurbaşkanlığı Mevzuat Bilgi Sistemi",
       "title": "3568 sayılı Serbest Muhasebeci Mali Müşavirlik ve Yeminli Mali Müşavirlik Kanunu — konsolide metin",

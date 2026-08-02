@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -12,7 +13,7 @@ from pathlib import Path
 from typing import Any
 
 
-VERSION = "0.1.0"
+VERSION = "0.2.0"
 CASE_ID = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 REQUIRED_FACTS = {
     "as_of_date",
@@ -66,6 +67,7 @@ def init_case(case_dir: Path, case_id: str, as_of_date: str) -> dict[str, Any]:
         "updated_at": now,
         "requires_calculation": True,
         "requires_journal": False,
+        "requires_thp_validation": False,
         "requires_tax_reconciliation": False,
     }
     facts = {
@@ -100,6 +102,17 @@ def _valid_iso(value: Any) -> bool:
         return True
     except ValueError:
         return False
+
+
+def _valid_receipt(value: Any) -> bool:
+    if not isinstance(value, dict) or not isinstance(value.get("receipt_sha256"), str):
+        return False
+    supplied = value["receipt_sha256"]
+    payload = dict(value)
+    del payload["receipt_sha256"]
+    canonical = json.dumps(payload, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    actual = hashlib.sha256(canonical.encode("utf-8")).hexdigest()
+    return supplied == actual
 
 
 def check_case(case_dir: Path) -> dict[str, Any]:
@@ -148,12 +161,46 @@ def check_case(case_dir: Path) -> dict[str, Any]:
 
     journal_required = bool(case.get("requires_journal", False))
     journal_path = case_dir / "outputs" / "journal-result.json"
+    thp_path = case_dir / "outputs" / "thp-validation-result.json"
+    if not journal_path.is_file() and thp_path.is_file():
+        journal_path = thp_path
     journal_balanced = False
     if journal_path.is_file():
         journal = read_json(journal_path)
         result = journal.get("result", journal) if isinstance(journal, dict) else {}
-        journal_balanced = bool(result.get("balanced"))
+        totals = result.get("totals", {}) if isinstance(result, dict) else {}
+        engine_decision_ok = not isinstance(journal, dict) or journal.get("decision") in {None, "PASS", "PASS_WITH_WARNINGS"}
+        journal_balanced = isinstance(result, dict) and engine_decision_ok and bool(result.get("balanced") or (isinstance(totals, dict) and totals.get("balanced")))
     gates.append(gate("journal", (not journal_required) or journal_balanced, {"required": journal_required, "path": str(journal_path), "balanced": journal_balanced}))
+
+    thp_required = bool(case.get("requires_thp_validation", False))
+    thp_passed = False
+    thp_decision = None
+    thp_receipt_valid = False
+    if thp_path.is_file():
+        thp_result = read_json(thp_path)
+        if isinstance(thp_result, dict):
+            thp_decision = thp_result.get("decision")
+            thp_receipt_valid = _valid_receipt(thp_result)
+            thp_engine = thp_result.get("engine", {})
+            thp_passed = (
+                isinstance(thp_engine, dict)
+                and thp_engine.get("name") == "muhasebecim-thp-vuk"
+                and thp_result.get("operation") in {"journal-validate", "trial-balance-validate", "account-validate"}
+                and thp_decision in {"PASS", "PASS_WITH_WARNINGS"}
+                and thp_receipt_valid
+            )
+    gates.append(gate(
+        "thp_vuk_validation",
+        (not thp_required) or thp_passed,
+        {
+            "required": thp_required,
+            "path": str(thp_path),
+            "decision": thp_decision,
+            "receipt_valid": thp_receipt_valid,
+            "passed": thp_passed,
+        },
+    ))
 
     reconciliation_required = bool(case.get("requires_tax_reconciliation", False))
     reconciliation_path = case_dir / "outputs" / "tax-reconciliation-result.json"

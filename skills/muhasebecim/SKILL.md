@@ -44,7 +44,7 @@ python scripts/case_workflow.py init --case <vaka-dizini> --case-id <kimlik> --a
    TMS/TFRS konusu belirlenince 2026 Mavi Kitap tam metinlerini `scripts/prepare_2026_tfrs_manifest.py` ile seçerek yerel korpusa al; yalnız dizin sayfasına dayanma.
 7. Her mesele için “olgu → uygulanacak hüküm → muhakeme → sonuç” zincirini kur. Alternatif yorum varsa koşullarını ve sayısal etkisini ayrı senaryo yap.
 8. Tüm hesapları Python ile çalıştır. Hazır işlem uygunsa `scripts/muhasebecim_engine.py` kullan; değilse olaya özgü, yeniden çalıştırılabilir bir `.py` dosyası yaz.
-9. Önerilen yevmiye kaydını oluştur; borç/alacak denkliğini Python ile doğrula. Hesap kodunun sektör veya düzenleyici kurum planına uygunluğunu ayrıca kontrol et.
+9. Önerilen yevmiye kaydını oluştur; borç/alacak denkliğini Python ile doğrula. Genel MSUGT planı uygulanıyorsa `scripts/thp_rule_engine.py` ile hesap kodu/adı, sektör, 7/A-7/B, VUK kayıt süresi, dil/para birimi, düzeltme, sıra ve tevsik kapılarını çalıştır. Başka düzenleyici plan varsa genel katalogla otomatik uygunluk verme.
 10. Finansal raporlama sonucu ile VUK matrah/değerleme sonucunu mutabıklaştır; geçici ve sürekli farkları ayır.
 11. Kaynak, yürürlük, hesap, kayıt ve sunum kontrollerini çalıştır. Bir kontrol başarısızsa düzeltip 3. adıma dön.
 12. [output-contract.md](references/output-contract.md) biçiminde teslim et.
@@ -56,7 +56,7 @@ python scripts/case_workflow.py check --case <vaka-dizini>
 python scripts/case_workflow.py finalize --case <vaka-dizini>
 ```
 
-`finalize`, yalnızca kapsam, kaynak, muhakeme çalışma kâğıdı, Python hesapları, gerekli yevmiye/vergi mutabakatı ve açık husus kontrolleri geçtiğinde durumu `ready_for_professional_review` yapar. Bunu dış gönderim veya mesleki onay olarak yorumlama.
+`finalize`, yalnızca kapsam, kaynak, muhakeme çalışma kâğıdı, Python hesapları, gerekli THP/VUK, yevmiye/vergi mutabakatı ve açık husus kontrolleri geçtiğinde durumu `ready_for_professional_review` yapar. THP/VUK kontrolü gereken vakada `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` yoluna yaz. Vaka kapısı motor kararını ve sonuç makbuzu bütünlüğünü doğrular. Bunu dış gönderim veya mesleki onay olarak yorumlama.
 
 Döngüyü ancak şu çıkış ölçütlerinin tamamı sağlandığında bitir:
 
@@ -64,6 +64,7 @@ Döngüyü ancak şu çıkış ölçütlerinin tamamı sağlandığında bitir:
 - Her mevzuat sonucunun işlem tarihinde yürürlükte olan birincil kaynağa bağlanması.
 - Her sayının Python girdisi, kodu, yuvarlama kuralı ve çıktısıyla yeniden üretilebilmesi.
 - Yevmiye ve mizan denkliklerinin geçmesi.
+- Genel MSUGT kapsamındaki hesap/kayıt verisinde THP/VUK motor kararının `PASS` veya açıklanmış `PASS_WITH_WARNINGS` olması ve sonuç makbuzunun doğrulanması.
 - Finansal raporlama ve vergi sonuçlarının ayrılması ve mutabakatın açıklanması.
 - Taslak, yürürlükte olmayan değişiklik, özelge veya mesleki yargının niteliğinin doğru etiketlenmesi.
 - Ingest edilen her belgenin özgün dosya özeti ve çıkarım durumu ile izlenebilmesi.
@@ -91,6 +92,19 @@ Hazır işlem yeterli değilse çalışma alanında `.muhasebecim/calculations/<
 - Negatif tutar, sıfır bölen, stok eksiği ve dengesiz kayıt gibi geçersiz durumlarda başarısız ol.
 - Ara adımları ve invariant sonuçlarını JSON çıktısına yaz.
 - Dışarıdan doğrulanan oran veya endeksin kaynağını ve yürürlük tarihini girdi meta verisinde sakla.
+
+## Deterministik THP ve VUK kural motoru
+
+Genel Tekdüzen hesap, yevmiye veya mizan kontrolünde önce [thp-control.md](references/thp-control.md) dosyasını oku. Sürümlü katalog denetimini ve uygun işlemi çalıştır:
+
+```powershell
+python scripts/thp_rule_engine.py catalog-audit
+python scripts/thp_rule_engine.py account-validate --input accounts.json --output result.json
+python scripts/thp_rule_engine.py journal-validate --input journal.json --output result.json
+python scripts/thp_rule_engine.py trial-balance-validate --input trial-balance.json --output result.json
+```
+
+Çıkış kodu `0` geçiş/uyarı, `1` iş kuralı bloku, `2` şema veya sistem hatasıdır. `BLOCK` sonucunu atlama, bulguyu sessizce düşürme veya model muhakemesiyle hesap kodunu geçerli sayma. Aynı katalog ve aynı girdide sonuç, bulgu sırası ve `receipt_sha256` değişmemelidir. Parasal değerleri JSON dizgesi olarak ver; müşteri girdisini yalnızca yerel dosyadan oku.
 
 ## Ingest sistemi
 

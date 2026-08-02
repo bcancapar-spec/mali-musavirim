@@ -12,6 +12,22 @@ Türk muhasebesi ve mali müşavirlik işleri için yerel veri işleyen, resmî 
 - Vaka klasörü açan ve işi “meslek mensubu incelemesine hazır” olana kadar deterministik çıkış kapılarıyla kontrol eden çalışma döngüsü.
 - Otomatik testler ve 2 Ağustos 2026 tarihinde yeniden doğrulanmış, sürüm izli resmî kaynak korpusu.
 - CSV/TSV/JSON/TXT, metin katmanlı PDF ve XLSX/XLSM müşteri kayıtlarını tamamen yerelde alan vaka ingest'i; elektronik tablo formülleri ve makroları çalıştırılmaz.
+- Sürümlü genel THP kataloğu üzerinde 271 tanımlı hesap, iki proje hesabı aralığı ve 10 kaynak kaydıyla çalışan deterministik THP/VUK kural motoru.
+
+## Deterministik THP/VUK motoru
+
+Motorun tasarımında [bcancapar-spec/ortak-avukat](https://github.com/bcancapar-spec/ortak-avukat) projesindeki deterministik kapı, açık kural kimliği, makinece okunabilir kanıt ve fail-closed çıktı yaklaşımından ilham alındı. Uygulama muhasebe alanı için sıfırdan yazıldı; diğer deponun kaynak kodu kopyalanmadı.
+
+`thp_rule_engine.py` dört işlem sağlar:
+
+- `catalog-audit`: kurulu katalog yapısını, kaynak bağlarını ve tekrarları denetler.
+- `account-validate`: hesap kodu/adı, yürürlük, sektör ve 7/A-7/B politikasını kontrol eder.
+- `journal-validate`: THP kontrollerine VUK 215, 217, 218, 219 ve 227 kayıt kapılarını ve yevmiye denkliğini ekler.
+- `trial-balance-validate`: hesap, normal bakiye, açılış-hareket-kapanış devri ve mizan toplamlarını doğrular.
+
+Aynı girdi ve aynı katalog kanonik olarak aynı JSON sonucu verir. Sonuçta girdi/katalog SHA-256 özetleri, sıralı bulgular, kaynak referansları ve kurcalamayı fark ettiren `receipt_sha256` bulunur. Çıkış kodu `0` geçiş, `1` iş kuralı bloku, `2` kapalı şema veya sistem hatasıdır.
+
+Katalog genel MSUGT planıyla sınırlıdır. Banka, sigorta, katılım finans, finansal kiralama, faktoring ve sermaye piyasası işletmelerinde genel plan otomatik uygulanmaz. Kod uygunluğu işlemin ekonomik sınıflandırmasının, belgenin gerçekliğinin veya beyannamenin doğruluğunun kanıtı değildir.
 
 ## Yerel veri garantisi
 
@@ -24,7 +40,7 @@ Kodlama dili Python 3.11+'dır. Müşteri belgesi, mizan, bordro, banka hareketi
 Testleri çalıştır:
 
 ```powershell
-python .\skills\muhasebecim\scripts\test_muhasebecim.py
+python -m unittest discover -s .\skills\muhasebecim\scripts -p "test_*.py" -v
 ```
 
 Resmî korpusu yenile ve denetle:
@@ -35,6 +51,14 @@ python .\skills\muhasebecim\scripts\ingest_sources.py ingest `
   --corpus .\corpus\official
 
 python .\skills\muhasebecim\scripts\ingest_sources.py audit `
+  --corpus .\corpus\official
+```
+
+Yalnız THP/VUK kural motoru dayanaklarını yenilemek için hedefli manifesti kullan:
+
+```powershell
+python .\skills\muhasebecim\scripts\ingest_sources.py ingest `
+  --manifest .\manifests\thp-vuk-sources.json `
   --corpus .\corpus\official
 ```
 
@@ -76,6 +100,18 @@ python .\skills\muhasebecim\scripts\muhasebecim_engine.py vat `
   --input .\case.json --output .\result.json
 ```
 
+THP/VUK kataloğunu ve kayıtları doğrula:
+
+```powershell
+python .\skills\muhasebecim\scripts\thp_rule_engine.py catalog-audit
+python .\skills\muhasebecim\scripts\thp_rule_engine.py journal-validate --example `
+  --output .\journal-example.json
+python .\skills\muhasebecim\scripts\thp_rule_engine.py journal-validate `
+  --input .\journal-example.json --output .\journal-result.json
+```
+
+Gerçek vaka kapısında `case.json` içindeki `requires_thp_validation` alanını `true` yap ve sonucu `outputs/thp-validation-result.json` olarak üret. Tam girdi sözleşmesi ve kural haritası [thp-control.md](skills/muhasebecim/references/thp-control.md) dosyasındadır.
+
 ## Yapı
 
 ```text
@@ -86,7 +122,7 @@ muhasebecim/
     ├── SKILL.md
     ├── agents/openai.yaml
     ├── references/                  # Meslek, standart, VUK ve kontrol bilgisi
-    └── scripts/                     # Python motorları ve testler
+    └── scripts/                     # Python motorları, THP kataloğu ve testler
 ```
 
 ## Sınır
